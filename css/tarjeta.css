@@ -313,9 +313,12 @@ main.container.tarjeta {
   transition: border-color 0.2s;
 }
 
+/* filter y padding: anulan el :hover de brands.css, que oscurecía la fila y movía el texto */
 .fila:hover,
 .tarjeta #profesional a.button:hover {
   border-color: var(--acento);
+  filter: none;
+  padding: 10px 14px;
 }
 
 .fila svg {

@@ -856,6 +856,8 @@ body {
   z-index: 20;
   max-width: min(260px, calc(100vw - 16px));
   padding: 8px 12px;
+  /* Líneas parejas: sin una palabra sola en la última línea */
+  text-wrap: balance;
   font-size: 14px;
   font-weight: 600;
   line-height: 1.35;
