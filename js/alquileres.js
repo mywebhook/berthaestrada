@@ -188,7 +188,7 @@
   }
 
   function llenarHabitaciones() {
-    selectHabitacion.replaceChildren(new Option("Cualquiera / casa completa", ""));
+    selectHabitacion.replaceChildren(new Option("Cualquiera", ""));
     C.habitaciones
       .filter((h) => h.casa === selectCasa.value && h.disponible)
       .forEach((h) => selectHabitacion.append(new Option(`${h.nombre} · ${precio(h.precio)}`, h.nombre)));

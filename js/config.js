@@ -12,7 +12,7 @@ window.CONFIG_ALQUILER = {
 
   // URL pública definitiva cuando la página esté publicada (para compartir y para el QR de la página).
   // Vacío: se usa la dirección con la que se abrió la página.
-  urlPublica: "",
+  urlPublica: "https://berthaestrada.github.io/berthaestrada/",
 
   // Mensaje que ya viene escrito al tocar "Escríbeme por WhatsApp"
   mensajeWhatsapp: "Hola Bertha, vi tu página y quiero consultar por una habitación en alquiler.",
