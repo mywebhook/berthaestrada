@@ -186,10 +186,12 @@ main.container.tarjeta {
   border-color: var(--acento);
 }
 
+/* padding: 0 quita el relleno de .icon (brands.css), que corría el ícono hacia arriba y a la izquierda */
 .tarjeta #iconos a.small img {
   width: 18px;
   height: 18px;
   margin: 0;
+  padding: 0;
   opacity: 0.85;
 }
 
@@ -323,11 +325,14 @@ main.container.tarjeta {
   color: var(--acento);
 }
 
+/* Mismo tamaño, posición y color (acento) que los íconos de "Métodos de pago"; sin el relleno de brands.css */
 .tarjeta #profesional a.button img.icon {
   flex: none;
   width: 18px;
   height: 18px;
   margin: 0;
+  padding: 0;
+  filter: brightness(0) saturate(100%) invert(66%) sepia(26%) saturate(767%) hue-rotate(139deg) brightness(91%) contrast(87%);
 }
 
 .fila-flecha,

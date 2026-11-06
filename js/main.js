@@ -628,7 +628,8 @@ function mostrarAyuda(el) {
   const r = el.getBoundingClientRect();
   const libreDerecha = innerWidth - r.right - SEPARACION_LADO - MARGEN_AYUDA;
   const libreIzquierda = r.left - SEPARACION_LADO - MARGEN_AYUDA;
-  const iconoChico = r.width < ANCHO_MIN_BOTON_LADO;
+  // En el diseño "tarjeta" siempre globo: el texto suelto al costado quedaba flotando fuera de la tarjeta
+  const iconoChico = r.width < ANCHO_MIN_BOTON_LADO || document.querySelector(".tarjeta");
   let lado = iconoChico ? null
     : libreDerecha >= ANCHO_MIN_LADO ? "derecha"
     : libreIzquierda >= ANCHO_MIN_LADO ? "izquierda" : null;
