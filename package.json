@@ -1,11 +1,25 @@
 {
-  "name": "alvarosiles-personal",
+  "name": "berthaestrada",
+  "version": "1.0.0",
   "private": true,
-  "description": "Página personal de Bertha Estrada (alvarosiles.github.io/personal). Código fuente; la versión publicada se genera en dist/.",
+  "description": "Sitio web de Bertha Estrada: alquiler de habitaciones y viviendas en Santa Cruz, Bolivia.",
+  "homepage": "https://berthaestrada.github.io/berthaestrada/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/berthaestrada/berthaestrada.git"
+  },
+  "author": "Bertha Estrada",
+  "contributors": [
+    "Alvaro Siles Estrada"
+  ],
+  "license": "SEE LICENSE IN LICENSE",
   "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
     "dev": "vite --open",
-    "build": "vite build && node scripts/check-dist.mjs && node scripts/copy-dist.mjs && vite preview --open",
+    "build": "vite build && node scripts/check-dist.mjs && vite preview --open",
     "compile": "vite build",
     "build:plain": "vite build --mode plain",
     "preview": "vite preview --open",

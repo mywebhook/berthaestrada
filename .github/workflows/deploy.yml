@@ -1,7 +1,6 @@
-# PUBLICACIÓN: compila el sitio en este repositorio (privado) y sube solo dist/ al repositorio público
-# alvarosiles/personal, que lo sirve con GitHub Pages en https://alvarosiles.github.io/personal/.
-# Configuración única (ver README → "Publicación"): una deploy key con escritura en el repositorio
-# público, guardada aquí como secreto PUBLIC_REPO_DEPLOY_KEY.
+# PUBLICACIÓN: en cada push a main, compila el sitio y publica dist/ con GitHub Pages en
+# https://berthaestrada.github.io/berthaestrada/
+# Configuración única: Settings → Pages → Build and deployment → Source: "GitHub Actions".
 name: Publicar sitio
 
 on:
@@ -11,13 +10,15 @@ on:
 
 permissions:
   contents: read
+  pages: write
+  id-token: write
 
 concurrency:
-  group: publicar-sitio
+  group: pages
   cancel-in-progress: true
 
 jobs:
-  publicar:
+  compilar:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -37,15 +38,18 @@ jobs:
       - name: Comprobar dist/ (rutas y archivos de desarrollo)
         run: npm run check
 
-      # force_orphan: el repositorio público queda con un solo commit, sin historial ni referencias a este
-      - name: Publicar en el repositorio público
-        uses: peaceiris/actions-gh-pages@v4
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
         with:
-          deploy_key: ${{ secrets.PUBLIC_REPO_DEPLOY_KEY }}
-          external_repository: alvarosiles/personal
-          publish_branch: main
-          publish_dir: ./dist
-          force_orphan: true
-          user_name: github-actions[bot]
-          user_email: 41898282+github-actions[bot]@users.noreply.github.com
-          full_commit_message: Publicar sitio
+          path: ./dist
+
+  publicar:
+    needs: compilar
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

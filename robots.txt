@@ -2,4 +2,4 @@
 User-agent: *
 Disallow:
 
-Sitemap: https://alvarosiles.github.io/personal/sitemap.xml
+Sitemap: https://berthaestrada.github.io/berthaestrada/sitemap.xml

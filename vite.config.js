@@ -2,7 +2,7 @@
 // Los archivos de este repositorio siguen siendo el código legible: `npm run dev` los sirve tal cual.
 // `npm run build` genera dist/ con solo lo que necesita el sitio publicado (minificado, JS ofuscado, sin
 // source maps), lo comprueba y lo abre en el navegador. `npm run compile` solo compila (lo usa GitHub Actions).
-// Se publica en https://alvarosiles.github.io/personal/ (sin dominio propio): todas las rutas son relativas.
+// Se publica en https://berthaestrada.github.io/berthaestrada/ (sin dominio propio): todas las rutas son relativas.
 import { defineConfig } from 'vite';
 import { resolve } from 'node:path';
 import { cpSync, existsSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
@@ -114,7 +114,7 @@ function keepAsIs() {
   };
 }
 
-// `npm run dev` sirve el sitio en la raíz (localhost:5173/): ahí la 404 usa la base "/" en vez de "/personal/",
+// `npm run dev` sirve el sitio en la raíz (localhost:5173/): ahí la 404 usa la base "/" en vez de "/berthaestrada/",
 // así el navegador no pide primero los recursos en una carpeta que en local no existe
 function devBase404() {
   return {
@@ -144,7 +144,7 @@ function copyStatic() {
 
 export default defineConfig(({ mode }) => ({
   appType: 'mpa',
-  // Rutas relativas (./assets/build/…): funciona en alvarosiles.github.io/personal/ y en cualquier dominio
+  // Rutas relativas (./assets/build/…): funciona en berthaestrada.github.io/berthaestrada/ y en cualquier dominio
   base: './',
   publicDir: false,
   plugins: [keepAsIs(), devBase404(), classicScriptsAndHtml(mode !== 'plain'), copyStatic()],

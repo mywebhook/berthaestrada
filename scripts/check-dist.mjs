@@ -1,6 +1,6 @@
 // COMPROBACIÓN DE dist/ (npm run check, después de compilar)
 // 1. Cada ruta local de los HTML, CSS, JS, botones.json, perfil.json y el manifest existe en dist/.
-// 2. Todas son relativas: el sitio vive en una subcarpeta (alvarosiles.github.io/personal/), así que una ruta
+// 2. Todas son relativas: el sitio vive en una subcarpeta (berthaestrada.github.io/berthaestrada/), así que una ruta
 //    que empieza con "/" apuntaría fuera de él. Excepción: 404.html, que usa <base> (ver el archivo).
 // 3. No se cuela nada de desarrollo: source maps, páginas de trabajo, documentación, código sin compilar.
 import { readdirSync, readFileSync, existsSync, statSync } from 'node:fs';
