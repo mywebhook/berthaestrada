@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Casa | Bertha Estrada</title>
+  <meta name="description" content="Detalle de la casa: fotos, habitaciones, precios, ubicación y reservas por WhatsApp." />
+  <meta name="author" content="Bertha Estrada" />
+  <meta name="theme-color" content="#0e141b" />
+  <link rel="icon" href="favicon.ico" sizes="any" />
+  <link rel="icon" type="image/png" href="images/favicon-32.png" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+  <link rel="manifest" href="site.webmanifest" />
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,800&display=swap" />
+  <link rel="stylesheet" href="css/normalize.css" />
+  <link rel="stylesheet" href="css/skeleton-dark.css" />
+  <link rel="stylesheet" href="css/index.css" />
+  <link rel="stylesheet" href="css/alquileres.css" />
+
+  <script>
+    (function () {
+      let tema = null;
+      try { tema = localStorage.getItem("social-theme"); } catch (e) { }
+      if (!tema) tema = matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+      document.documentElement.dataset.theme = tema;
+    })();
+  </script>
+</head>
+
+<body>
+  <main class="container">
+    <a class="volver" href="index.html#casas">← Volver a las casas</a>
+
+    <!-- Todo el contenido lo dibuja js/casa.js con la casa de ?id= (datos de js/config.js) -->
+    <article class="casa-detalle" id="casa-detalle" aria-live="polite"></article>
+
+    <section class="seccion" id="habitaciones" aria-labelledby="habitaciones-titulo">
+      <h2 class="seccion-titulo" id="habitaciones-titulo">Habitaciones</h2>
+      <p class="seccion-texto">La disponibilidad se actualiza a mano: confírmala por WhatsApp antes de visitar.</p>
+      <div class="lista-habitaciones" id="lista-habitaciones"></div>
+    </section>
+
+    <section class="seccion" id="otras" aria-labelledby="otras-titulo">
+      <h2 class="seccion-titulo" id="otras-titulo">Otras casas</h2>
+      <div class="filtros" id="otras-casas"></div>
+    </section>
+  </main>
+
+  <footer class="pie">
+    <nav class="pie-enlaces" aria-label="Enlaces útiles">
+      <a href="index.html#casas">Casas</a>
+      <a href="index.html#reservar">Reservar</a>
+      <a href="index.html#pagar">Pagar</a>
+      <a href="index.html#reglas">Reglas</a>
+      <a data-whatsapp href="https://wa.me/" target="_blank" rel="noopener">WhatsApp</a>
+    </nav>
+    © <span id="anio">2026</span> Bertha Estrada
+  </footer>
+
+  <script src="js/config.js"></script>
+  <script src="js/casa.js"></script>
+</body>
+
+</html>

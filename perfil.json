@@ -1,0 +1,15 @@
+{
+  "foto": "images/avatar-perfil.jpg",
+  "aro": "menta",
+  "estado": {
+    "mostrar": false,
+    "texto": "Habitaciones disponibles",
+    "punto": "verde"
+  },
+  "pagina": {
+    "idioma": "es",
+    "mostrarIdioma": false,
+    "tema": "dark",
+    "mostrarTema": false
+  }
+}

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Páginas del sitio para Google. Al agregar una página, sumarla aquí y cambiar <lastmod>. -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://alvarosiles.github.io/personal/</loc>
+    <lastmod>2026-10-24</lastmod>
+    <priority>1.0</priority>
+  </url>
+</urlset>

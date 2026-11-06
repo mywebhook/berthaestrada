@@ -1,0 +1,512 @@
+/* Diseño "tarjeta" del index: toda la página en una columna central con portada, foto montada,
+   accesos en recuadros y paneles. Se carga después de alquileres.css (usa sus colores) y solo en index.html. */
+
+:root {
+  --tarjeta-fondo: #111922;
+  --relleno-tarjeta: 16px;
+}
+
+body,
+:root[data-theme="light"] body {
+  background: #0a0f15;
+}
+
+/* ---------- La tarjeta ---------- */
+
+main.container.tarjeta {
+  width: calc(100% - 24px);
+  max-width: 460px;
+  margin: 16px auto 24px;
+  padding: 0 var(--relleno-tarjeta) 8px;
+  box-sizing: border-box;
+  overflow: clip;
+  text-align: center;
+  background: var(--tarjeta-fondo);
+  border: 1px solid var(--borde);
+  border-radius: 24px;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.45);
+}
+
+@media (max-width: 420px) {
+  main.container.tarjeta {
+    width: 100%;
+    margin: 0;
+    border: 0;
+    border-radius: 0;
+  }
+}
+
+.portada {
+  height: 116px;
+  margin: 0 calc(-1 * var(--relleno-tarjeta));
+  background:
+    repeating-linear-gradient(-45deg, rgba(255, 255, 255, 0.07) 0 10px, transparent 10px 20px),
+    linear-gradient(100deg, #0f766e 0%, #2a9aa5 55%, #b08a2e 100%);
+}
+
+/* ---------- Cabecera ---------- */
+
+.tarjeta .perfil {
+  margin-top: -64px;
+}
+
+.tarjeta .avatar-wrap {
+  margin-top: 0;
+}
+
+.tarjeta img.avatar {
+  width: 116px;
+  height: 116px;
+  border-color: var(--tarjeta-fondo);
+}
+
+.tarjeta .perfil h1 {
+  margin: 14px 0 4px;
+  font-size: 24px;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.tarjeta .subtitulo {
+  margin: 0 0 10px;
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--texto-suave);
+}
+
+.estado-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin: 0 0 18px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--verde);
+  background: rgba(74, 222, 128, 0.1);
+}
+
+.estado-pill .punto {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: currentColor;
+  box-shadow: 0 0 0 3px rgba(74, 222, 128, 0.2);
+}
+
+.estado-pill.sin-libres {
+  color: #fde68a;
+  background: rgba(253, 230, 138, 0.1);
+}
+
+/* Accesos en recuadros: ícono arriba, texto abajo */
+.tiles {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  max-width: 380px;
+  margin: 0 auto;
+}
+
+.tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: auto;
+  min-height: 68px;
+  margin: 0;
+  padding: 10px 4px;
+  border: 1px solid var(--borde);
+  border-radius: 14px;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: normal;
+  text-transform: none;
+  text-decoration: none;
+  color: var(--texto-suave);
+  background: var(--tarjeta-2);
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s, transform 0.2s;
+}
+
+.tile[hidden] {
+  display: none;
+}
+
+.tile svg {
+  width: 22px;
+  height: 22px;
+  color: var(--acento);
+}
+
+.tile:hover {
+  color: var(--texto);
+  border-color: var(--acento);
+  transform: translateY(-2px);
+}
+
+.tile:focus-visible,
+.fila:focus-visible,
+.boton-contacto:focus-visible,
+.boton-cta:focus-visible,
+#profesional a.button:focus-visible,
+#iconos a.small:focus-visible {
+  outline: 2px solid var(--acento);
+  outline-offset: 2px;
+}
+
+/* Redes: círculos con borde */
+.tarjeta #iconos {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin: 16px 0 0;
+}
+
+.tarjeta #iconos a.small {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  margin: 0;
+  padding: 0;
+  line-height: normal;
+  border: 1px solid var(--borde);
+  border-radius: 50%;
+  background: transparent;
+  transition: border-color 0.2s;
+}
+
+.tarjeta #iconos a.small:hover {
+  border-color: var(--acento);
+}
+
+.tarjeta #iconos a.small img {
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  opacity: 0.85;
+}
+
+/* ---------- Botones grandes ---------- */
+
+.boton-contacto,
+.boton-cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  height: auto;
+  margin: 0;
+  border-radius: 14px;
+  font: inherit;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: normal;
+  text-transform: none;
+  cursor: pointer;
+}
+
+.boton-contacto {
+  min-height: 50px;
+  margin-top: 18px;
+  color: var(--texto);
+  background: var(--tarjeta);
+  border: 1px solid var(--borde);
+  transition: border-color 0.2s;
+}
+
+.boton-contacto svg,
+.boton-cta svg {
+  width: 20px;
+  height: 20px;
+}
+
+.boton-contacto svg {
+  color: var(--acento);
+}
+
+.boton-contacto:hover {
+  border-color: var(--acento);
+}
+
+.boton-cta {
+  min-height: 54px;
+  color: #fff;
+  background: linear-gradient(100deg, #0f766e, #2a9aa5);
+  border: 0;
+  box-shadow: 0 10px 24px rgba(15, 118, 110, 0.3);
+  transition: filter 0.2s, transform 0.2s;
+}
+
+.boton-cta:hover {
+  filter: brightness(1.08);
+}
+
+.boton-cta:active {
+  transform: scale(0.98);
+}
+
+.panel-nota {
+  margin: 10px 0 0;
+  font-size: 12px;
+  line-height: 1.4;
+  text-align: center;
+  color: var(--texto-suave);
+}
+
+/* ---------- Paneles ---------- */
+
+.tarjeta .seccion {
+  margin: 12px 0 0;
+}
+
+.tarjeta .seccion.panel {
+  padding: 14px;
+  background: var(--tarjeta);
+  border-radius: 16px;
+}
+
+/* Filas con ícono, texto y flecha: los enlaces de botones.json y los métodos de pago */
+.filas,
+.tarjeta #profesional {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+}
+
+.fila,
+.tarjeta #profesional a.button {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  height: auto;
+  min-height: 46px;
+  margin: 0;
+  padding: 0 14px;
+  box-sizing: border-box;
+  border: 1px solid var(--borde);
+  border-radius: 12px;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: normal;
+  text-align: left;
+  text-transform: none;
+  text-decoration: none;
+  color: var(--texto);
+  background: var(--tarjeta-2);
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+
+.fila:hover,
+.tarjeta #profesional a.button:hover {
+  border-color: var(--acento);
+}
+
+.fila svg {
+  flex: none;
+  width: 18px;
+  height: 18px;
+  color: var(--acento);
+}
+
+.tarjeta #profesional a.button img.icon {
+  flex: none;
+  width: 18px;
+  height: 18px;
+  margin: 0;
+}
+
+.fila-flecha,
+.tarjeta #profesional a.button::after {
+  margin-left: auto;
+  font-weight: 400;
+  color: var(--texto-suave);
+}
+
+.tarjeta #profesional a.button::after {
+  content: "→";
+}
+
+/* El mapa, más bajo dentro de la tarjeta */
+.tarjeta .mapa-casas,
+.tarjeta .mapa-casas[class] {
+  height: 230px;
+}
+
+.tarjeta .lista-ubicaciones {
+  gap: 6px;
+}
+
+/* Filas del mapa: compactas y se tocan enteras (la elegida queda con borde de color) */
+.tarjeta .panel .ubicacion {
+  width: 100%;
+  height: auto;
+  min-height: 0;
+  margin: 0;
+  padding: 8px 12px;
+  box-sizing: border-box;
+  gap: 10px;
+  justify-content: flex-start;
+  font: inherit;
+  letter-spacing: normal;
+  text-align: left;
+  text-transform: none;
+  color: var(--texto);
+  border: 1px solid var(--borde);
+  border-radius: 12px;
+}
+
+.tarjeta .panel button.ubicacion {
+  cursor: pointer;
+}
+
+.tarjeta .panel button.ubicacion:hover {
+  border-color: var(--acento);
+}
+
+.tarjeta .panel .ubicacion.elegida {
+  border-color: var(--acento);
+  box-shadow: inset 0 0 0 1px var(--acento);
+}
+
+.tarjeta .ubicacion-numero {
+  width: 22px;
+  height: 22px;
+  font-size: 12px;
+}
+
+.tarjeta .panel .ubicacion-texto strong {
+  font-size: 13px;
+  line-height: 1.3;
+}
+
+.tarjeta .panel .ubicacion-texto span {
+  font-size: 12px;
+  line-height: 1.3;
+}
+
+/* Miniaturas: la pastilla "4 libres" más chica */
+.tarjeta .casa-mini-libres {
+  padding: 1px 6px;
+  font-size: 9px;
+}
+
+/* El botón flotante de compartir sobra: está el recuadro "Compartir" (que lo usa por dentro) */
+.controles {
+  display: none;
+}
+
+/* ---------- QR para compartir ---------- */
+
+.qr-compartir {
+  text-align: center;
+}
+
+.qr-caja {
+  display: grid;
+  place-items: center;
+  width: 156px;
+  height: 156px;
+  margin: 4px auto 12px;
+  padding: 8px;
+  box-sizing: border-box;
+  border-radius: 16px;
+  background: #fff;
+}
+
+.qr-caja:empty::before {
+  content: "QR";
+  font-weight: 800;
+  color: #94a3b8;
+}
+
+.qr-caja img {
+  width: 100%;
+  height: 100%;
+  image-rendering: pixelated;
+}
+
+.qr-compartir .qr-etiqueta {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--texto-suave);
+}
+
+.qr-compartir .qr-etiqueta::after {
+  display: none;
+}
+
+.qr-descargar {
+  display: inline-block;
+  margin-top: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--acento);
+}
+
+/* ---------- Pie ---------- */
+
+.tarjeta .pie {
+  padding: 20px 0 12px;
+  opacity: 1;
+  font-size: 13px;
+  color: var(--texto-suave);
+}
+
+.tarjeta .pie p {
+  margin: 6px 0 0;
+}
+
+.pie-url {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 700;
+  color: var(--acento);
+  text-decoration: none;
+}
+
+.pie-url .pie-icono {
+  width: 14px;
+  height: 14px;
+}
+
+/* ---------- Ventana "Reglas de alquiler" ---------- */
+
+.apoyo.reglas-ventana {
+  width: min(460px, calc(100% - 32px));
+}
+
+.reglas-ventana .lista-reglas {
+  display: grid;
+  gap: 8px;
+  margin: 16px 0 0;
+  text-align: left;
+}
+
+.reglas-ventana .regla {
+  padding: 12px 14px;
+  background: var(--apoyo-tarjeta);
+  border-radius: 12px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tile,
+  .boton-cta {
+    transition: none;
+  }
+}

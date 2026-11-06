@@ -1,0 +1,13 @@
+# Sistema operativo
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editores
+.idea/
+*.swp
+
+# Dependencias, logs y la versión compilada (se genera con `npm run build`; la publica GitHub Actions)
+node_modules/
+*.log
+dist/

@@ -1,0 +1,20 @@
+{
+  "name": "alvarosiles-personal",
+  "private": true,
+  "description": "Página personal de Bertha Estrada (alvarosiles.github.io/personal). Código fuente; la versión publicada se genera en dist/.",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --open",
+    "build": "vite build && node scripts/check-dist.mjs && node scripts/copy-dist.mjs && vite preview --open",
+    "compile": "vite build",
+    "build:plain": "vite build --mode plain",
+    "preview": "vite preview --open",
+    "check": "node scripts/check-dist.mjs"
+  },
+  "devDependencies": {
+    "html-minifier-terser": "^7.2.0",
+    "javascript-obfuscator": "^4.2.2",
+    "terser": "^5.51.2",
+    "vite": "^6.4.4"
+  }
+}

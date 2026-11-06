@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node -e \"const t=require\\('./tree.json'\\);t.tree.filter\\(x=>/littlelink|extended|epic/i.test\\(x.path\\)\\).forEach\\(x=>console.log\\(x.path\\)\\)\")",
+      "Bash(curl -sL -m 30 https://littlelink.io/ -o site.html -w \"%{http_code} %{size_download}\\\\n\")",
+      "Bash(curl -sL -m 30 https://littlelink.io/images/icons/tinyextensions.svg -o tinyextensions.svg -w \"tiny %{http_code} %{content_type} %{size_download}\\\\n\")",
+      "Bash(curl -sL -m 30 https://raw.githubusercontent.com/sethcottle/littlelink-extended/main/images/icons-extended/epicgames.svg -o epicgames.svg -w \"epic %{http_code} %{size_download}\\\\n\")",
+      "Bash(cp tinyextensions.svg C:/Users/ALVARO/Documents/GitHub/portfolio/icons/tinyextensions.svg)",
+      "Bash(cp epicgames.svg C:/Users/ALVARO/Documents/GitHub/portfolio/icons/epicgames.svg)",
+      "Bash(node -e ' *)",
+      "Bash(python -c \"import segno; print\\('segno', segno.__version__\\)\")",
+      "Bash(python -c \"import qrcode; print\\('qrcode ok'\\)\")",
+      "Bash(python -m pip install --quiet --target C:/Users/ALVARO/AppData/Local/Temp/claude/c--Users-ALVARO-Documents-GitHub-portfolio/e8316ff6-cf71-495a-a27a-f6f811658f80/scratchpad/pylib segno)",
+      "Bash(python -m pip install --quiet --target C:/Users/ALVARO/AppData/Local/Temp/claude/c--Users-ALVARO-Documents-GitHub-portfolio/e8316ff6-cf71-495a-a27a-f6f811658f80/scratchpad/pylib zxing-cpp)"
+    ]
+  }
+}

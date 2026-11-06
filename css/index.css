@@ -1,0 +1,2363 @@
+/* Estilos propios de la página (los botones de marca están en brands.css) */
+
+a {
+  text-decoration: none !important;
+}
+
+a:hover {
+  color: inherit;
+  filter: brightness(90%);
+}
+
+/* Perfil */
+.perfil {
+  margin-top: 10%;
+}
+
+img.avatar {
+  position: relative;
+  display: block;
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  border: 3px solid rgba(255, 255, 255, 0.85);
+  border-radius: 50%;
+}
+
+.avatar-wrap {
+  position: relative;
+  display: inline-block;
+  margin-top: 2.5rem;
+}
+
+/* Aro de color que gira alrededor de la foto, con un brillo que respira.
+   Los colores salen de la paleta elegida en perfil.json (ver css/aros.css). */
+.avatar-wrap::before {
+  content: "";
+  position: absolute;
+  inset: -7px;
+  border-radius: 50%;
+  background: conic-gradient(var(--aro-1), var(--aro-2), var(--aro-3), transparent 70%, var(--aro-1));
+  animation: girar 4s linear infinite, brillar 3s ease-in-out infinite;
+}
+
+@keyframes girar {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes brillar {
+  0%, 100% { box-shadow: 0 8px 30px var(--brillo-1); }
+  50% { box-shadow: 0 8px 40px var(--brillo-2); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .avatar-wrap::before { animation: none; }
+}
+
+.pensamiento {
+  --fondo-burbuja: #2b2d31;
+  --borde-burbuja: rgba(255, 255, 255, 0.1);
+  position: absolute;
+  top: -34px;
+  left: -95px;
+  z-index: 1;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 22px 12px 16px;
+  white-space: nowrap;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.3;
+  color: #f2f3f5;
+  background: var(--fondo-burbuja);
+  border: 1px solid var(--borde-burbuja);
+  border-radius: 999px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+}
+
+/* Las "burbujitas" que bajan en diagonal hacia la foto */
+.pensamiento::before,
+.pensamiento::after {
+  content: "";
+  position: absolute;
+  background: var(--fondo-burbuja);
+  border: 1px solid var(--borde-burbuja);
+  border-radius: 50%;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.35);
+}
+
+.pensamiento::before {
+  width: 16px;
+  height: 16px;
+  bottom: -14px;
+  left: 58%;
+}
+
+.pensamiento::after {
+  width: 9px;
+  height: 9px;
+  bottom: -28px;
+  left: calc(58% + 18px);
+}
+
+/* La burbuja es un botón (abre "Contrátame"): sin estilos de botón y con un saltito al pasar */
+button.pensamiento {
+  height: auto;
+  font-family: inherit;
+  letter-spacing: normal;
+  text-transform: none;
+  cursor: pointer;
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.25s;
+}
+
+button.pensamiento:hover,
+button.pensamiento:focus-visible {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 34px rgba(var(--punto-rgb), 0.3);
+}
+
+button.pensamiento:active {
+  transform: scale(0.97);
+}
+
+.pensamiento .punto {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  /* El color sale del estado elegido en perfil.json (ver css/aros.css) */
+  background: radial-gradient(circle at 35% 35%, var(--punto-claro), var(--punto) 70%);
+  box-shadow: 0 0 0 0 rgba(var(--punto-rgb), 0.6);
+  animation: latido 2s infinite;
+}
+
+@keyframes latido {
+  70% { box-shadow: 0 0 0 9px rgba(var(--punto-rgb), 0); }
+  100% { box-shadow: 0 0 0 0 rgba(var(--punto-rgb), 0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pensamiento .punto { animation: none; }
+}
+
+/* En pantallas angostas la burbuja se corre para no salirse */
+@media (max-width: 420px) {
+  .pensamiento {
+    left: -30px;
+    font-size: 14px;
+  }
+}
+
+:root[data-theme="light"] .pensamiento {
+  --fondo-burbuja: #fff;
+  --borde-burbuja: rgba(36, 87, 245, 0.18);
+  color: #1a1a1a;
+  box-shadow: 0 8px 24px rgba(36, 87, 245, 0.18);
+}
+
+:root[data-theme="light"] .pensamiento::before,
+:root[data-theme="light"] .pensamiento::after {
+  box-shadow: 0 3px 8px rgba(36, 87, 245, 0.15);
+}
+
+/* Mano que saluda: se mueve un rato y descansa */
+.mano {
+  display: inline-block;
+  transform-origin: 70% 70%;
+  animation: saludar 2.5s ease-in-out infinite;
+}
+
+@keyframes saludar {
+  0%, 60%, 100% { transform: rotate(0deg); }
+  10% { transform: rotate(14deg); }
+  20% { transform: rotate(-8deg); }
+  30% { transform: rotate(14deg); }
+  40% { transform: rotate(-4deg); }
+  50% { transform: rotate(10deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mano { animation: none; }
+}
+
+.saludo {
+  margin-bottom: 2.5rem;
+}
+
+/* Grupos de botones */
+.grupo-botones {
+  margin-bottom: 1.5rem;
+}
+
+.grupo-botones:empty {
+  display: none;
+}
+
+.titulo-seccion {
+  margin: 4rem 0 2rem;
+  font-size: 1.8rem;
+  font-weight: 600;
+}
+
+/* Títulos de cada grupo en la página principal: una etiqueta chica entre dos líneas */
+.titulo-grupo {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  max-width: 300px;
+  margin: 2.4rem auto 1.4rem;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  line-height: 1.3;
+  text-transform: uppercase;
+  opacity: 0.6;
+}
+
+.titulo-grupo::before,
+.titulo-grupo::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.4;
+}
+
+/* Título plegable: js/main.js mete el texto en un botón con contador y flechita */
+.titulo-boton {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: auto;
+  margin: 0;
+  padding: 4px 6px;
+  font: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.titulo-grupo:has(.titulo-boton:hover, .titulo-boton:focus-visible) {
+  opacity: 1;
+}
+
+.titulo-boton .contador {
+  min-width: 20px;
+  padding: 1px 6px;
+  font-size: 11px;
+  letter-spacing: 0;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+}
+
+.titulo-boton .contador:empty {
+  display: none;
+}
+
+.titulo-boton .flecha {
+  width: 14px;
+  height: 14px;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.titulo-boton[aria-expanded="false"] .flecha {
+  transform: rotate(-90deg);
+}
+
+/* Al abrir un grupo, sus botones entran uno tras otro (js/main.js les pone --j) */
+:root .grupo-botones.abriendo > :is(a, .desplegable) {
+  animation: aparecer 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: calc(var(--j, 0) * 0.035s);
+}
+
+/* Fila de íconos (Facebook, Instagram, etc.) */
+a.small {
+  padding: 0 16px;
+  line-height: 48px;
+  font-size: 18px;
+}
+
+/* Insignias "Deploy to ...": la imagen mide 320x68 porque trae margen para su sombra,
+   y el botón dibujado (300x48, en x=10 y=5) ocupa lo mismo que un .button */
+a.boton-insignia {
+  display: inline-block;
+  vertical-align: middle;
+  width: 300px;
+  height: 48px;
+  margin-bottom: 1rem;
+  transition: filter 0.4s;
+}
+
+a.boton-insignia img {
+  display: block;
+  width: 320px;
+  max-width: none;
+  height: 68px;
+  margin: -5px 0 0 -10px;
+}
+
+/* Botón desplegable (ej. "Bancos"): un <button> que abre un panel con mensaje y más botones */
+.desplegable {
+  margin-bottom: 1rem;
+}
+
+button.button {
+  margin: 0;
+  font-family: inherit;
+  text-transform: none;
+  border: 0;
+}
+
+.button.button-desplegable {
+  color: #fff;
+  background-color: #d9263a;
+  border: 1px solid #fff;
+}
+
+.button-desplegable .flecha {
+  width: 16px;
+  height: 16px;
+  margin-left: 8px;
+  vertical-align: middle;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.button-desplegable[aria-expanded="true"] .flecha {
+  transform: rotate(180deg);
+}
+
+.desplegable-panel {
+  max-width: 550px;
+  margin: 0 auto;
+  padding: 2.4rem 16px 0.6rem;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 10px;
+  animation: panel-abrir 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.desplegable-panel p {
+  margin-bottom: 1.6rem;
+  line-height: 1.5;
+}
+
+@keyframes panel-abrir {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+}
+
+:root[data-theme="light"] .desplegable-panel {
+  border-color: rgba(0, 0, 0, 0.15);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .desplegable-panel,
+  .button-desplegable .flecha {
+    animation: none;
+    transition: none;
+  }
+}
+
+/* Cambio de idioma: el texto sube y se desenfoca, cambia y entra desde abajo.
+   Las clases .idioma-sale / .idioma-entra las pone js/main.js en <html>.
+   El saludo se anima entero porque sus <span> son inline y no aceptan transform. */
+.idioma-sale :is(.saludo, [data-i18n]:not(.saludo *)) {
+  animation: idioma-salir 0.22s ease-in forwards;
+}
+
+.idioma-entra :is(.saludo, [data-i18n]:not(.saludo *)) {
+  animation: idioma-entrar 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Los botones que cambian de texto giran enteros, como una tarjeta que se da vuelta */
+.idioma-sale a.traducible {
+  animation: boton-girar-salir 0.22s ease-in forwards;
+}
+
+.idioma-entra a.traducible {
+  animation: boton-girar-entrar 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes boton-girar-salir {
+  to { transform: perspective(500px) rotateX(90deg); }
+}
+
+@keyframes boton-girar-entrar {
+  from { transform: perspective(500px) rotateX(-90deg); }
+}
+
+/* La burbuja de pensamiento "late" mientras cambia de tamaño */
+.idioma-sale .pensamiento {
+  animation: burbuja-encoger 0.22s ease-in forwards;
+}
+
+.idioma-entra .pensamiento {
+  animation: burbuja-rebotar 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes idioma-salir {
+  to {
+    opacity: 0;
+    filter: blur(8px);
+    transform: translateY(-10px) scale(0.96);
+  }
+}
+
+@keyframes idioma-entrar {
+  from {
+    opacity: 0;
+    filter: blur(8px);
+    transform: translateY(12px) scale(0.96);
+  }
+}
+
+@keyframes burbuja-encoger {
+  to { transform: scale(0.88); }
+}
+
+@keyframes burbuja-rebotar {
+  from { transform: scale(0.88); }
+}
+
+/* Barra de idioma y tema */
+.controles {
+  position: fixed;
+  top: 12px;
+  right: 12px;
+  z-index: 10;
+  display: flex;
+  gap: 8px;
+}
+
+/* Botones redondos solo con ícono */
+.controles button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  margin: 0;
+  padding: 0;
+  color: #f5c542;
+  background: #1a1a1a;
+  border: 1px solid #444;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform 0.2s, border-color 0.2s;
+}
+
+.controles button:hover {
+  transform: scale(1.08);
+  border-color: #888;
+}
+
+.controles button svg {
+  width: 20px;
+  height: 20px;
+}
+
+.controles svg.bandera {
+  width: 24px;
+  height: 16px;
+  border-radius: 3px;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.15);
+}
+
+/* Botón "Subir": abajo a la derecha, con un aro del color del aro de la foto que muestra el avance */
+.btn-subir {
+  position: fixed;
+  right: 16px;
+  bottom: 20px;
+  z-index: 15;
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  margin: 0;
+  padding: 0;
+  color: #fff;
+  background: #1a1a1a;
+  border: 0;
+  border-radius: 50%;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(16px) scale(0.6);
+  transition: opacity 0.2s, transform 0.25s, visibility 0s 0.25s, bottom 0.3s;
+}
+
+.btn-subir.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  transition: opacity 0.2s, transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1), visibility 0s, bottom 0.3s;
+}
+
+.btn-subir.visible:hover {
+  transform: translateY(-3px);
+}
+
+.btn-subir.visible:active {
+  transform: scale(0.92);
+}
+
+/* Si aparece el aviso "Próximamente" abajo, el botón se corre hacia arriba para no taparlo */
+body:has(.aviso.visible) .btn-subir {
+  bottom: 96px;
+}
+
+.subir-progreso {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.subir-progreso circle {
+  fill: none;
+  stroke: rgb(var(--aro-rgb, 10, 102, 194));
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-dasharray: 100;
+  stroke-dashoffset: calc(100 - var(--progreso, 0));
+}
+
+.subir-flecha {
+  width: 20px;
+  height: 20px;
+}
+
+.btn-subir:hover .subir-flecha {
+  animation: subir-rebote 0.8s ease-in-out infinite;
+}
+
+@keyframes subir-rebote {
+  50% { transform: translateY(-3px); }
+}
+
+/* Al tocarlo, la flecha sale disparada hacia arriba y vuelve a entrar desde abajo */
+.btn-subir.despegando .subir-flecha {
+  animation: subir-despegar 0.6s cubic-bezier(0.5, 0, 0.3, 1);
+}
+
+@keyframes subir-despegar {
+  45% { transform: translateY(-28px); opacity: 0; }
+  46% { transform: translateY(20px); opacity: 0; }
+  100% { transform: none; opacity: 1; }
+}
+
+:root[data-theme="light"] .btn-subir {
+  color: #1a1a1a;
+  background: #fff;
+  box-shadow: 0 8px 24px rgba(36, 87, 245, 0.18);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn-subir,
+  .btn-subir.visible {
+    transition: none;
+  }
+
+  .btn-subir:hover .subir-flecha,
+  .btn-subir.despegando .subir-flecha {
+    animation: none;
+  }
+}
+
+/* Aviso "Hay más abajo": píldora abajo al centro con dos flechas que bajan una tras otra */
+.hay-mas {
+  position: fixed;
+  left: 50%;
+  bottom: 20px;
+  z-index: 14;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 40px;
+  margin: 0;
+  padding: 0 12px 0 16px;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0;
+  text-transform: none;
+  white-space: nowrap;
+  color: #f2f3f5;
+  background: rgba(31, 34, 41, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45), 0 0 0 4px rgba(var(--aro-rgb, 10, 102, 194), 0.12);
+  backdrop-filter: blur(8px);
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transform: translate(-50%, 20px);
+  transition: opacity 0.3s, transform 0.3s, visibility 0s 0.3s;
+}
+
+.hay-mas.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(-50%, 0);
+  transition: opacity 0.4s, transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), visibility 0s;
+  /* Flota suave para llamar la atención sin molestar */
+  animation: hay-mas-flotar 2.4s 0.6s ease-in-out infinite;
+}
+
+.hay-mas:hover {
+  border-color: rgba(var(--aro-rgb, 10, 102, 194), 0.7);
+}
+
+.hay-mas svg {
+  width: 18px;
+  height: 18px;
+  color: rgb(var(--aro-rgb, 10, 102, 194));
+}
+
+.hay-mas-flecha {
+  animation: hay-mas-flecha 1.4s ease-in-out infinite;
+}
+
+.hay-mas-flecha + .hay-mas-flecha {
+  animation-delay: 0.2s;
+}
+
+@keyframes hay-mas-flecha {
+  0%, 100% { opacity: 0.25; transform: translateY(-2px); }
+  50% { opacity: 1; transform: translateY(2px); }
+}
+
+@keyframes hay-mas-flotar {
+  0%, 100% { transform: translate(-50%, 0); }
+  50% { transform: translate(-50%, -5px); }
+}
+
+/* El aviso "Próximamente" usa el mismo lugar: mientras se ve, este se esconde */
+body:has(.aviso.visible) .hay-mas {
+  opacity: 0;
+  pointer-events: none;
+}
+
+:root[data-theme="light"] .hay-mas {
+  color: #1a1a1a;
+  background: rgba(255, 255, 255, 0.9);
+  border-color: rgba(36, 87, 245, 0.14);
+  box-shadow: 0 10px 30px rgba(36, 87, 245, 0.18), 0 0 0 4px rgba(var(--aro-rgb, 36, 87, 245), 0.1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hay-mas,
+  .hay-mas.visible {
+    transition: none;
+    animation: none;
+  }
+
+  .hay-mas-flecha {
+    animation: none;
+    opacity: 1;
+  }
+}
+
+/* ---------- Otras pistas de "hay más abajo" (ver PISTA en js/main.js) ---------- */
+
+/* "giro": al entrar el botón "Subir" apunta hacia abajo y rebota; al bajar gira para apuntar arriba.
+   Se usa "rotate" y no "transform" para no pisar las animaciones de la flecha. */
+.subir-flecha {
+  transition: rotate 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.btn-subir.bajar .subir-flecha {
+  rotate: 180deg;
+  animation: subir-rebote 1.2s ease-in-out infinite;
+}
+
+/* Sin avance todavía: un aro tenue completo, para que no parezca vacío */
+.btn-subir.bajar .subir-progreso circle {
+  stroke-dashoffset: 0;
+  opacity: 0.35;
+}
+
+/* "desvanecido": franja abajo que va del transparente al color del fondo */
+.niebla {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 5;
+  height: 140px;
+  background: linear-gradient(to bottom, transparent, #000 85%);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+
+:root[data-theme="light"] .niebla {
+  background: linear-gradient(to bottom, rgba(244, 246, 251, 0), #f4f6fb 85%);
+}
+
+.niebla.visible {
+  opacity: 1;
+}
+
+/* "flecha": dentro de la página, debajo de los íconos de redes */
+.flecha-mas {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  margin: 0 auto;
+  padding: 0;
+  color: rgb(var(--aro-rgb, 10, 102, 194));
+  background: none;
+  border: 0;
+  border-radius: 50%;
+  cursor: pointer;
+  animation: flecha-mas-rebote 1.8s ease-in-out infinite;
+}
+
+.flecha-mas svg {
+  width: 26px;
+  height: 26px;
+}
+
+.flecha-mas:hover {
+  background: rgba(var(--aro-rgb, 10, 102, 194), 0.12);
+}
+
+@keyframes flecha-mas-rebote {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(6px); }
+}
+
+/* "indice": fila de chips con los grupos; si no entran, se desplazan de costado */
+.indice-grupos {
+  display: flex;
+  gap: 8px;
+  max-width: 560px;
+  margin: 0.4rem auto 0;
+  padding: 4px 16px 8px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  mask-image: linear-gradient(90deg, transparent, #000 16px, #000 calc(100% - 16px), transparent);
+}
+
+.indice-grupos::-webkit-scrollbar {
+  display: none;
+}
+
+/* En pantallas anchas entran todos: centrados */
+@media (min-width: 700px) {
+  .indice-grupos {
+    flex-wrap: wrap;
+    justify-content: center;
+    mask-image: none;
+  }
+}
+
+.indice-chip {
+  flex-shrink: 0;
+  height: 34px;
+  margin: 0;
+  padding: 0 14px;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0;
+  text-transform: none;
+  white-space: nowrap;
+  color: inherit;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 999px;
+  cursor: pointer;
+  transition: transform 0.2s, border-color 0.2s, background-color 0.2s;
+}
+
+.indice-chip:hover {
+  transform: translateY(-2px);
+  border-color: rgb(var(--aro-rgb, 10, 102, 194));
+  background: rgba(var(--aro-rgb, 10, 102, 194), 0.15);
+}
+
+:root[data-theme="light"] .indice-chip {
+  background: #fff;
+  border-color: #d9dce3;
+}
+
+/* Al bajar a un grupo desde el índice, que el título no quede debajo de los botones de la esquina */
+.titulo-grupo {
+  scroll-margin-top: 70px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .subir-flecha,
+  .niebla {
+    transition: none;
+  }
+
+  .btn-subir.bajar .subir-flecha,
+  .flecha-mas {
+    animation: none;
+  }
+}
+
+/* Tema claro (el oscuro viene de skeleton-dark.css) */
+/* Un resplandor detrás de la foto para que el fondo no quede plano, del color del aro (css/aros.css).
+   Las páginas que no cargan aros.css usan el azul de respaldo. */
+body {
+  background-image: radial-gradient(ellipse 700px 500px at 50% 0%, rgba(var(--aro-rgb, 10, 102, 194), 0.22), transparent 70%);
+  background-repeat: no-repeat;
+}
+
+:root[data-theme="light"] body {
+  background-color: #f4f6fb;
+  background-image: radial-gradient(ellipse 700px 500px at 50% 0%, rgba(var(--aro-rgb, 36, 87, 245), 0.14), transparent 70%);
+  color: #1a1a1a;
+}
+
+:root[data-theme="light"] .controles button {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+:root[data-theme="light"] .controles button {
+  color: #3c3b6e;
+  background: #fff;
+  border-color: #c9ccd3;
+}
+
+:root[data-theme="light"] .controles svg.bandera {
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.12);
+}
+
+:root[data-theme="light"] img.avatar {
+  border-color: #fff;
+}
+
+/* Los íconos blancos de la fila de redes se ven negros en tema claro */
+:root[data-theme="light"] a.small img.icon {
+  filter: brightness(0);
+}
+
+/* Mensaje de ayuda de cada botón (lo crea y posiciona js/main.js).
+   data-lado: "derecha"/"izquierda" = texto suelto al costado; "arriba"/"abajo" = globo */
+.globo-ayuda {
+  --fondo-globo: #2b2d31;
+  --borde-globo: rgba(255, 255, 255, 0.1);
+  position: fixed;
+  z-index: 20;
+  max-width: min(260px, calc(100vw - 16px));
+  padding: 8px 12px;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.35;
+  text-align: center;
+  color: #f2f3f5;
+  background: var(--fondo-globo);
+  border: 1px solid var(--borde-globo);
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(4px) scale(0.96);
+  transition: opacity 0.15s, transform 0.15s;
+}
+
+.globo-ayuda[data-lado="abajo"] {
+  transform: translateY(-4px) scale(0.96);
+}
+
+/* Al costado: sin caja, solo el texto, que se desliza desde el botón */
+.globo-ayuda:is([data-lado="derecha"], [data-lado="izquierda"]) {
+  padding: 0;
+  font-size: 16px;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  text-align: left;
+  color: #d0d3d9;
+  background: none;
+  border: 0;
+  box-shadow: none;
+  transform: translateX(-8px);
+  transition: opacity 0.2s, transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.globo-ayuda[data-lado="izquierda"] {
+  text-align: right;
+  transform: translateX(8px);
+}
+
+.globo-ayuda:is([data-lado="derecha"], [data-lado="izquierda"])::after {
+  display: none;
+}
+
+.globo-ayuda.visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Flechita: un cuadrado girado con dos bordes, apuntando al botón */
+.globo-ayuda::after {
+  content: "";
+  position: absolute;
+  left: var(--flecha, 50%);
+  bottom: -6px;
+  width: 10px;
+  height: 10px;
+  background: var(--fondo-globo);
+  border: 1px solid var(--borde-globo);
+  border-top: 0;
+  border-left: 0;
+  transform: translateX(-50%) rotate(45deg);
+}
+
+.globo-ayuda[data-lado="abajo"]::after {
+  top: -6px;
+  bottom: auto;
+  transform: translateX(-50%) rotate(-135deg);
+}
+
+:root[data-theme="light"] .globo-ayuda {
+  --fondo-globo: #fff;
+  --borde-globo: rgba(36, 87, 245, 0.18);
+  color: #1a1a1a;
+  box-shadow: 0 8px 24px rgba(36, 87, 245, 0.18);
+}
+
+:root[data-theme="light"] .globo-ayuda:is([data-lado="derecha"], [data-lado="izquierda"]) {
+  color: #2b2f38;
+  box-shadow: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .globo-ayuda { transition: none; }
+}
+
+/* Pie de página */
+.pie {
+  padding: 2rem 16px 2.5rem;
+  text-align: center;
+  font-size: 14px;
+  opacity: 0.6;
+}
+
+.pie a {
+  color: inherit;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s;
+}
+
+.pie a:hover {
+  filter: none;
+  border-bottom-color: currentColor;
+}
+
+/* Entrada al cargar la página: todo aparece de abajo hacia arriba, en orden.
+   La clase .entrada la pone el <head> de index.html y la quita js/main.js. */
+.entrada :is(.avatar-wrap, h1, .saludo, .pie) {
+  animation: aparecer 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.entrada h1 { animation-delay: 0.1s; }
+.entrada .saludo { animation-delay: 0.2s; }
+.entrada .pie { animation-delay: 0.6s; }
+
+/* Los botones llegan después (se cargan de botones.json) y entran uno tras otro;
+   js/main.js les pone --i con su posición */
+.entrada .grupo-botones > :is(a, .desplegable) {
+  animation: aparecer 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: calc(0.3s + var(--i, 0) * 0.04s);
+}
+
+@keyframes aparecer {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .entrada * {
+    animation: none !important;
+  }
+}
+
+/* Cambio de tema: los colores pasan suave de uno a otro.
+   La clase .cambiando-tema la pone js/main.js solo mientras dura el cambio. */
+.cambiando-tema *,
+.cambiando-tema *::before,
+.cambiando-tema *::after {
+  transition: background-color 0.4s, color 0.4s, border-color 0.4s, box-shadow 0.4s, filter 0.4s !important;
+}
+
+/* El sol / la luna giran al cambiar de tema */
+.controles svg.girando {
+  animation: icono-girar 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes icono-girar {
+  from {
+    opacity: 0;
+    transform: rotate(-120deg) scale(0.5);
+  }
+}
+
+/* ==========================================================================
+   Apóyame: botón especial + ventana con QR (Bolivia) y Ko-fi (otros países)
+   ========================================================================== */
+
+/* Botón con degradado que se mueve, un brillo que lo cruza y un corazón que late */
+.button.button-apoyo {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  color: #fff;
+  background: linear-gradient(120deg, #ff4d8d, #8b5cf6, #2457f5, #ff4d8d);
+  background-size: 300% 100%;
+  animation: apoyo-degradado 8s linear infinite;
+}
+
+.button.button-apoyo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(105deg, transparent 35%, rgba(255, 255, 255, 0.45) 50%, transparent 65%);
+  transform: translateX(-100%);
+  animation: apoyo-brillo 4s ease-in-out infinite;
+}
+
+.button-apoyo img.icon {
+  animation: corazon-latir 1.4s ease-in-out infinite;
+}
+
+@keyframes apoyo-degradado {
+  to { background-position: 300% 0; }
+}
+
+@keyframes apoyo-brillo {
+  0%, 65% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+@keyframes corazon-latir {
+  0%, 40%, 100% { transform: scale(1); }
+  15% { transform: scale(1.25); }
+  25% { transform: scale(1.05); }
+  32% { transform: scale(1.2); }
+}
+
+/* Ventana */
+.apoyo {
+  --apoyo-fondo: #15171c;
+  --apoyo-tarjeta: #1f2229;
+  --apoyo-borde: rgba(255, 255, 255, 0.1);
+  --apoyo-texto: #f2f3f5;
+  --apoyo-suave: #a8adb8;
+  width: min(380px, calc(100% - 32px));
+  max-height: calc(100% - 32px);
+  padding: 0;
+  overflow-y: auto;
+  color: var(--apoyo-texto);
+  background: var(--apoyo-fondo);
+  border: 1px solid var(--apoyo-borde);
+  border-radius: 24px;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 77, 141, 0.08);
+}
+
+:root[data-theme="light"] .apoyo {
+  --apoyo-fondo: #fff;
+  --apoyo-tarjeta: #f3f4f8;
+  --apoyo-borde: rgba(36, 87, 245, 0.14);
+  --apoyo-texto: #1a1a1a;
+  --apoyo-suave: #5b6070;
+  box-shadow: 0 30px 80px rgba(36, 87, 245, 0.25);
+}
+
+.apoyo[open] {
+  animation: apoyo-abrir 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.apoyo::backdrop {
+  background: rgba(5, 8, 15, 0.65);
+  backdrop-filter: blur(6px);
+}
+
+.apoyo[open]::backdrop {
+  animation: apoyo-fundido 0.3s ease;
+}
+
+/* Al cerrar, js/main.js pone .cerrando y espera a que termine antes de cerrar */
+.apoyo.cerrando {
+  animation: apoyo-cerrar 0.2s ease-in forwards;
+}
+
+.apoyo.cerrando::backdrop {
+  animation: apoyo-fundido 0.2s ease-in reverse forwards;
+}
+
+@keyframes apoyo-abrir {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.9);
+  }
+}
+
+@keyframes apoyo-cerrar {
+  to {
+    opacity: 0;
+    transform: translateY(16px) scale(0.95);
+  }
+}
+
+@keyframes apoyo-fundido {
+  from { opacity: 0; }
+}
+
+/* Que la página de atrás no se desplace mientras la ventana está abierta */
+:root:has(.apoyo[open]) {
+  overflow: hidden;
+}
+
+.apoyo-contenido {
+  position: relative;
+  padding: 32px 24px 24px;
+  text-align: center;
+  background: radial-gradient(120% 55% at 50% 0%, rgba(255, 77, 141, 0.2), transparent 65%);
+}
+
+.apoyo p {
+  margin: 0;
+}
+
+.apoyo button {
+  margin: 0;
+  font-family: inherit;
+}
+
+.apoyo-cerrar {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  color: var(--apoyo-suave);
+  background: var(--apoyo-tarjeta);
+  border: 1px solid var(--apoyo-borde);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform 0.25s, color 0.2s;
+}
+
+.apoyo-cerrar:hover {
+  color: var(--apoyo-texto);
+  transform: rotate(90deg);
+}
+
+.apoyo-cerrar svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* Cabecera con corazón que late y deja ondas */
+.apoyo-corazon {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 14px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #ff4d8d, #8b5cf6);
+  box-shadow: 0 10px 30px rgba(255, 77, 141, 0.45);
+}
+
+.apoyo-corazon::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 2px solid #ff4d8d;
+  animation: corazon-onda 1.4s ease-out infinite;
+}
+
+.apoyo-corazon svg {
+  width: 30px;
+  height: 30px;
+  fill: #fff;
+  animation: corazon-latir 1.4s ease-in-out infinite;
+}
+
+@keyframes corazon-onda {
+  from { transform: scale(1); opacity: 0.8; }
+  to { transform: scale(1.6); opacity: 0; }
+}
+
+.apoyo-cabecera h2 {
+  margin: 0 0 6px;
+  font-size: 22px;
+  font-weight: 800;
+  line-height: 1.25;
+}
+
+.apoyo-cabecera p {
+  font-size: 15px;
+  line-height: 1.4;
+  color: var(--apoyo-suave);
+}
+
+/* Pestañas con un indicador que se desliza */
+.apoyo-pestanas {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin: 20px 0 18px;
+  padding: 4px;
+  background: var(--apoyo-tarjeta);
+  border: 1px solid var(--apoyo-borde);
+  border-radius: 14px;
+}
+
+.apoyo-indicador {
+  position: absolute;
+  top: 4px;
+  bottom: 4px;
+  left: 4px;
+  width: calc(50% - 4px);
+  border-radius: 10px;
+  background: linear-gradient(120deg, #ff4d8d, #8b5cf6);
+  box-shadow: 0 4px 14px rgba(139, 92, 246, 0.4);
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.apoyo-pestanas[data-activa="mundo"] .apoyo-indicador {
+  transform: translateX(100%);
+}
+
+.apoyo-pestanas button {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 40px;
+  padding: 0 8px;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0;
+  text-transform: none;
+  line-height: 1;
+  color: var(--apoyo-suave);
+  background: none;
+  border: 0;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: color 0.25s;
+}
+
+.apoyo-pestanas button[aria-selected="true"] {
+  color: #fff;
+}
+
+.apoyo-pestanas svg {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+.apoyo-pestanas svg.bandera {
+  width: 21px;
+  height: 14px;
+  border-radius: 2px;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.2);
+}
+
+.apoyo-panel {
+  animation: panel-entrar 0.35s ease;
+}
+
+@keyframes panel-entrar {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+
+/* QR dentro de un "visor" con esquinas y una línea que lo escanea */
+.qr-marco {
+  position: relative;
+  width: 236px;
+  max-width: 100%;
+  margin: 0 auto 14px;
+  padding: 14px;
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+}
+
+.qr-marco img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 6px;
+}
+
+.qr-laser {
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  top: 14px;
+  height: 3px;
+  border-radius: 3px;
+  background: linear-gradient(90deg, transparent, #ff4d8d, #8b5cf6, transparent);
+  box-shadow: 0 0 12px 2px rgba(255, 77, 141, 0.6);
+  animation: qr-escanear 2.6s ease-in-out infinite;
+}
+
+@keyframes qr-escanear {
+  0%, 100% { transform: translateY(0); opacity: 0; }
+  10%, 90% { opacity: 1; }
+  50% { transform: translateY(205px); }
+}
+
+.qr-esquina {
+  position: absolute;
+  width: 26px;
+  height: 26px;
+  border: 4px solid #8b5cf6;
+}
+
+.qr-esquina:nth-of-type(2) { top: -6px; left: -6px; border-right: 0; border-bottom: 0; border-radius: 12px 0 0 0; }
+.qr-esquina:nth-of-type(3) { top: -6px; right: -6px; border-left: 0; border-bottom: 0; border-radius: 0 12px 0 0; }
+.qr-esquina:nth-of-type(4) { bottom: -6px; left: -6px; border-right: 0; border-top: 0; border-radius: 0 0 0 12px; }
+.qr-esquina:nth-of-type(5) { bottom: -6px; right: -6px; border-left: 0; border-top: 0; border-radius: 0 0 12px 0; }
+
+.apoyo-ayuda {
+  margin-bottom: 16px !important;
+  font-size: 15px;
+  line-height: 1.4;
+}
+
+/* Botón de acción (Descargar QR / Ko-fi) */
+.apoyo-accion {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  height: 48px;
+  font-size: 16px;
+  font-weight: 700;
+  color: #fff !important;
+  background: linear-gradient(120deg, #ff4d8d, #8b5cf6);
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(139, 92, 246, 0.35);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.apoyo-accion:hover {
+  filter: none;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 26px rgba(139, 92, 246, 0.45);
+}
+
+.apoyo-accion:active {
+  transform: scale(0.97);
+}
+
+.apoyo-accion svg,
+.apoyo-accion img {
+  width: 20px;
+  height: 20px;
+}
+
+.apoyo-kofi {
+  background: #ff5e5b;
+  box-shadow: 0 8px 20px rgba(255, 94, 91, 0.35);
+}
+
+.apoyo-kofi:hover {
+  box-shadow: 0 12px 26px rgba(255, 94, 91, 0.45);
+}
+
+.apoyo-kofi img {
+  filter: brightness(0) invert(1);
+}
+
+/* El aviso del celular solo se ve en pantallas táctiles */
+.apoyo-nota {
+  display: none;
+  margin-top: 12px !important;
+  font-size: 13px;
+  line-height: 1.4;
+  color: var(--apoyo-suave);
+}
+
+@media (hover: none) {
+  .apoyo-nota { display: block; }
+}
+
+/* Taza de Ko-fi con vapor */
+.apoyo-taza {
+  position: relative;
+  display: grid;
+  place-items: center;
+  box-sizing: border-box;
+  width: 120px;
+  height: 120px;
+  margin: 6px auto 16px;
+  padding-top: 18px;
+  border-radius: 50%;
+  background: #ff5e5b;
+  box-shadow: 0 10px 30px rgba(255, 94, 91, 0.4);
+}
+
+.apoyo-taza svg {
+  width: 64px;
+  height: 48px;
+}
+
+.vapor {
+  position: absolute;
+  top: 22px;
+  width: 6px;
+  height: 18px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.8);
+  filter: blur(1px);
+  animation: vapor-subir 2s ease-in infinite;
+}
+
+.vapor:nth-child(1) { left: 44px; }
+.vapor:nth-child(2) { left: 56px; animation-delay: 0.6s; }
+.vapor:nth-child(3) { left: 68px; animation-delay: 1.2s; }
+
+@keyframes vapor-subir {
+  0% { transform: translateY(8px) scaleY(0.6); opacity: 0; }
+  30% { opacity: 1; }
+  100% { transform: translateY(-14px) scaleY(1.2) translateX(3px); opacity: 0; }
+}
+
+/* ==========================================================================
+   Contrátame: botón con degradado azul + ventana (usa la base de .apoyo)
+   ========================================================================== */
+
+.button.button-contratame {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  color: #fff;
+  background: linear-gradient(120deg, #0a66c2, #00c6ff, #2457f5, #0a66c2);
+  background-size: 300% 100%;
+  animation: apoyo-degradado 8s linear infinite;
+}
+
+/* El mismo brillo que cruza el botón Apóyame */
+.button.button-contratame::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(105deg, transparent 35%, rgba(255, 255, 255, 0.45) 50%, transparent 65%);
+  transform: translateX(-100%);
+  animation: apoyo-brillo 4s ease-in-out infinite;
+}
+
+.contratame .apoyo-contenido {
+  background: radial-gradient(120% 55% at 50% 0%, rgba(0, 198, 255, 0.2), transparent 65%);
+}
+
+.contratame-icono {
+  background: linear-gradient(135deg, #0a66c2, #00c6ff);
+  box-shadow: 0 10px 30px rgba(0, 198, 255, 0.45);
+}
+
+.contratame-icono::before {
+  border-color: #00c6ff;
+}
+
+.contratame-icono svg {
+  fill: none;
+  animation: maletin-saltar 2.4s ease-in-out infinite;
+}
+
+@keyframes maletin-saltar {
+  0%, 60%, 100% { transform: translateY(0); }
+  70% { transform: translateY(-4px); }
+  80% { transform: translateY(0); }
+  88% { transform: translateY(-2px); }
+}
+
+.contratame-datos {
+  display: grid;
+  gap: 8px;
+  margin: 20px 0 14px;
+  padding: 0;
+  list-style: none;
+  text-align: left;
+}
+
+.contratame-datos li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  padding: 10px 14px;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.35;
+  background: var(--apoyo-tarjeta);
+  border: 1px solid var(--apoyo-borde);
+  border-radius: 12px;
+}
+
+.contratame-tecnologias {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px;
+  margin: 0 0 20px;
+  padding: 0;
+  list-style: none;
+}
+
+.contratame-tecnologias li {
+  margin: 0;
+  padding: 4px 10px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #6fd8ff;
+  background: rgba(0, 198, 255, 0.12);
+  border-radius: 999px;
+}
+
+:root[data-theme="light"] .contratame-tecnologias li {
+  color: #1f4fd6;
+  background: rgba(36, 87, 245, 0.08);
+}
+
+.contratame-acciones {
+  display: grid;
+  gap: 10px;
+}
+
+.contratame .apoyo-accion img {
+  filter: brightness(0) invert(1);
+}
+
+.contratame-whatsapp {
+  background: #25d366;
+  box-shadow: 0 8px 20px rgba(37, 211, 102, 0.3);
+}
+
+.contratame-whatsapp:hover {
+  box-shadow: 0 12px 26px rgba(37, 211, 102, 0.4);
+}
+
+.contratame-correo {
+  background: linear-gradient(120deg, #2457f5, #00c6ff);
+  box-shadow: 0 8px 20px rgba(36, 87, 245, 0.35);
+}
+
+.contratame-correo:hover {
+  box-shadow: 0 12px 26px rgba(36, 87, 245, 0.45);
+}
+
+.contratame-secundarios {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.contratame-secundario {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 44px;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--apoyo-texto) !important;
+  background: var(--apoyo-tarjeta);
+  border: 1px solid var(--apoyo-borde);
+  border-radius: 12px;
+  transition: transform 0.2s, border-color 0.2s;
+}
+
+.contratame-secundario:hover {
+  filter: none;
+  transform: translateY(-2px);
+  border-color: rgba(0, 198, 255, 0.5);
+}
+
+.contratame-secundario img {
+  width: 18px;
+  height: 18px;
+}
+
+:root[data-theme="light"] .contratame-secundario img {
+  filter: brightness(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .button.button-contratame,
+  .button.button-contratame::after,
+  .contratame-icono svg,
+  button.pensamiento {
+    animation: none;
+    transition: none;
+  }
+}
+
+/* ==========================================================================
+   Ubícame: ventana con el mapa (usa la base de .apoyo)
+   ========================================================================== */
+
+/* El pin del botón da un saltito al pasar el mouse */
+.button-ubicame:hover img.icon,
+.button-encuentranos:hover img.icon,
+.button-grupo-ubicaciones:hover img.icon {
+  animation: pin-saltar 0.6s ease;
+}
+
+@keyframes pin-saltar {
+  0%, 100% { transform: translateY(0); }
+  40% { transform: translateY(-5px); }
+  70% { transform: translateY(1px); }
+}
+
+.ubicame .apoyo-contenido {
+  background: radial-gradient(120% 55% at 50% 0%, rgba(234, 67, 53, 0.2), transparent 65%);
+}
+
+.ubicame-icono {
+  background: linear-gradient(135deg, #ea4335, #ff8a00);
+  box-shadow: 0 10px 30px rgba(234, 67, 53, 0.45);
+}
+
+.ubicame-icono::before {
+  border-color: #ea4335;
+}
+
+/* El pin cae y rebota, con su sombra que se achica cuando sube */
+.ubicame-icono svg {
+  animation: pin-rebotar 2s cubic-bezier(0.28, 0.84, 0.42, 1) infinite;
+}
+
+@keyframes pin-rebotar {
+  0%, 100% { transform: translateY(0) scale(1, 1); }
+  10% { transform: translateY(0) scale(1.12, 0.88); }
+  35% { transform: translateY(-9px) scale(0.95, 1.05); }
+  55% { transform: translateY(0) scale(1.08, 0.92); }
+  65% { transform: translateY(-2px) scale(1, 1); }
+  75% { transform: translateY(0); }
+}
+
+/* Chips para elegir el lugar (solo con más de uno); si no entran, se desplazan de costado */
+.ubicame-lugares {
+  display: flex;
+  gap: 8px;
+  margin: 18px -24px 0;
+  padding: 2px 24px 4px;
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  scrollbar-width: none;
+  /* Los bordes se desvanecen para que se note que hay más chips al costado */
+  mask-image: linear-gradient(90deg, transparent, #000 24px, #000 calc(100% - 24px), transparent);
+}
+
+.ubicame-lugares::-webkit-scrollbar {
+  display: none;
+}
+
+.ubicame-lugar {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 6px;
+  height: 36px;
+  padding: 0 14px 0 10px;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0;
+  text-transform: none;
+  white-space: nowrap;
+  color: var(--apoyo-texto);
+  background: var(--apoyo-tarjeta);
+  border: 1px solid var(--apoyo-borde);
+  border-radius: 999px;
+  cursor: pointer;
+  scroll-snap-align: center;
+  transition: transform 0.2s, background-color 0.25s, border-color 0.25s, color 0.25s;
+}
+
+.ubicame-lugar:hover {
+  transform: translateY(-2px);
+  border-color: rgba(234, 67, 53, 0.5);
+}
+
+.ubicame-lugar svg {
+  width: 16px;
+  height: 16px;
+  color: #ea4335;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), color 0.25s;
+}
+
+/* El lugar elegido se pinta y su pin da un salto */
+.ubicame-lugar[aria-pressed="true"] {
+  color: #fff;
+  background: linear-gradient(120deg, #ea4335, #ff8a00);
+  border-color: transparent;
+  box-shadow: 0 6px 16px rgba(234, 67, 53, 0.35);
+}
+
+.ubicame-lugar[aria-pressed="true"] svg {
+  color: #fff;
+  animation: pin-saltar 0.6s ease;
+}
+
+.ubicame-lugares:not([hidden]) + .ubicame-mapa {
+  margin-top: 12px;
+}
+
+.ubicame-mapa {
+  position: relative;
+  height: 220px;
+  margin: 20px 0 10px;
+  overflow: hidden;
+  background: var(--apoyo-tarjeta);
+  border: 1px solid var(--apoyo-borde);
+  border-radius: 16px;
+}
+
+/* Brillo que recorre el recuadro mientras el mapa carga */
+.ubicame-mapa::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(100deg, transparent 30%, rgba(255, 255, 255, 0.08) 50%, transparent 70%);
+  background-size: 200% 100%;
+  animation: mapa-cargando 1.2s linear infinite;
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+
+:root[data-theme="light"] .ubicame-mapa::after {
+  background-image: linear-gradient(100deg, transparent 30%, rgba(36, 87, 245, 0.08) 50%, transparent 70%);
+}
+
+.ubicame-mapa.cargado::after {
+  opacity: 0;
+  animation: none;
+}
+
+@keyframes mapa-cargando {
+  from { background-position: 100% 0; }
+  to { background-position: -100% 0; }
+}
+
+.ubicame-mapa iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  opacity: 0;
+  transform: scale(1.04);
+  transition: opacity 0.5s, transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.ubicame-mapa.cargado iframe {
+  opacity: 1;
+  transform: none;
+}
+
+/* "Grupo de ubicaciones": el mapa de Leaflet ocupa el lugar del de Google */
+.ubicame-grupo,
+.ubicame-mapa.en-grupo iframe {
+  display: none;
+}
+
+.ubicame-mapa.en-grupo .ubicame-grupo {
+  display: block;
+  width: 100%;
+  height: 100%;
+  font-family: inherit;
+  background: var(--apoyo-tarjeta);
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+
+.ubicame-mapa.en-grupo.cargado .ubicame-grupo {
+  opacity: 1;
+}
+
+.ubicame-mapa.en-grupo {
+  height: 260px;
+}
+
+/* En oscuro las calles se invierten para que el mapa no encandile; los pines quedan con su color */
+:root[data-theme="dark"] .ubicame-grupo .leaflet-tile-pane {
+  filter: invert(1) hue-rotate(180deg) brightness(0.95) contrast(0.85);
+}
+
+.ubicame-grupo .leaflet-control-attribution {
+  font-size: 10px;
+}
+
+.ubicame-grupo .leaflet-tooltip {
+  font-size: 13px;
+  font-weight: 700;
+}
+
+/* Pines numerados: caen uno tras otro y el elegido se agranda */
+.pin-grupo {
+  background: none;
+  border: 0;
+}
+
+.pin-grupo span {
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  font-size: 14px;
+  font-weight: 800;
+  color: #fff;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transform-origin: 50% 120%;
+  animation: pin-caer 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) backwards;
+  animation-delay: calc(var(--i) * 140ms + 250ms);
+}
+
+/* La gota: un cuadrado con una esquina en punta, girado para que apunte hacia abajo */
+.pin-grupo span::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(135deg, #ea4335, #ff8a00);
+  border: 2px solid #fff;
+  border-radius: 50% 50% 50% 0;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.35);
+  transform: rotate(-45deg);
+  transition: background 0.3s;
+}
+
+.pin-grupo.elegido span {
+  transform: scale(1.25);
+}
+
+.pin-grupo.elegido span::before {
+  background: linear-gradient(135deg, #2457f5, #00c6ff);
+}
+
+@keyframes pin-caer {
+  from {
+    opacity: 0;
+    transform: translateY(-46px);
+  }
+}
+
+/* Número de cada lugar en su chip, igual al del pin */
+.ubicame-numero {
+  display: grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  font-size: 11px;
+  font-weight: 800;
+  color: #fff;
+  background: #ea4335;
+  border-radius: 50%;
+}
+
+.ubicame-lugar[aria-pressed="true"] .ubicame-numero {
+  color: #ea4335;
+  background: #fff;
+}
+
+/* Con "Todos" no hay Waze (solo navega a un punto) y Google Maps ocupa la fila */
+.ubicame-acciones.sin-waze .ubicame-waze {
+  display: none;
+}
+
+.ubicame-acciones.sin-waze .ubicame-google {
+  grid-column: 1 / -1;
+}
+
+.ubicame-hora {
+  margin-bottom: 16px !important;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--apoyo-suave);
+}
+
+.ubicame-acciones {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.ubicame-whatsapp,
+.ubicame-copiar {
+  grid-column: 1 / -1;
+}
+
+.ubicame-google {
+  background: linear-gradient(120deg, #4285f4, #34a853);
+  box-shadow: 0 8px 20px rgba(66, 133, 244, 0.35);
+}
+
+.ubicame-google:hover {
+  box-shadow: 0 12px 26px rgba(66, 133, 244, 0.45);
+}
+
+.ubicame-waze {
+  color: #0b2733 !important;
+  background: #33ccff;
+  box-shadow: 0 8px 20px rgba(51, 204, 255, 0.35);
+}
+
+.ubicame-waze:hover {
+  box-shadow: 0 12px 26px rgba(51, 204, 255, 0.45);
+}
+
+.ubicame-whatsapp {
+  background: #25d366;
+  box-shadow: 0 8px 20px rgba(37, 211, 102, 0.3);
+}
+
+.ubicame-whatsapp:hover {
+  box-shadow: 0 12px 26px rgba(37, 211, 102, 0.4);
+}
+
+.ubicame-whatsapp img {
+  filter: brightness(0) invert(1);
+}
+
+.ubicame-copiar {
+  width: 100%;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.ubicame-copiar svg {
+  width: 18px;
+  height: 18px;
+}
+
+.ubicame-copiar.copiado {
+  color: #fff !important;
+  background: #34a853;
+  border-color: #34a853;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .button-ubicame:hover img.icon,
+  .button-encuentranos:hover img.icon,
+  .ubicame-lugar[aria-pressed="true"] svg,
+  .pin-grupo span,
+  .ubicame-icono svg,
+  .ubicame-mapa::after {
+    animation: none;
+  }
+
+  .ubicame-mapa iframe {
+    transform: none;
+    transition: none;
+  }
+}
+
+/* ==========================================================================
+   Aviso "Próximamente" (botones sin enlace) y hoja "Compartir"
+   ========================================================================== */
+
+.aviso {
+  position: fixed;
+  left: 50%;
+  bottom: 20px;
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: max-content;
+  max-width: calc(100% - 32px);
+  padding: 12px 12px 12px 16px;
+  text-align: left;
+  color: #f2f3f5;
+  background: #1f2229;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, 24px) scale(0.96);
+  transition: opacity 0.2s, transform 0.2s;
+}
+
+.aviso.visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translate(-50%, 0);
+  transition: opacity 0.25s, transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.aviso-icono {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 38px;
+  height: 38px;
+  font-size: 20px;
+  background: rgba(245, 197, 66, 0.15);
+  border-radius: 12px;
+}
+
+.aviso.visible .aviso-icono {
+  animation: aviso-saludo 0.6s 0.15s ease-in-out;
+}
+
+@keyframes aviso-saludo {
+  25% { transform: rotate(-12deg); }
+  50% { transform: rotate(10deg); }
+  75% { transform: rotate(-6deg); }
+}
+
+.aviso-cuerpo {
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
+  line-height: 1.35;
+}
+
+.aviso-cuerpo strong {
+  font-size: 15px;
+}
+
+.aviso-cuerpo span {
+  color: #a8adb8;
+}
+
+.aviso-accion {
+  flex-shrink: 0;
+  padding: 8px 12px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #fff !important;
+  background: #25d366;
+  border-radius: 10px;
+}
+
+.aviso-accion:hover {
+  filter: brightness(0.92);
+}
+
+:root[data-theme="light"] .aviso {
+  color: #1a1a1a;
+  background: #fff;
+  border-color: rgba(36, 87, 245, 0.14);
+  box-shadow: 0 16px 40px rgba(36, 87, 245, 0.2);
+}
+
+:root[data-theme="light"] .aviso-cuerpo span {
+  color: #5b6070;
+}
+
+/* Hoja "Compartir": sube desde abajo. Usa los mismos colores que la ventana Apóyame */
+.hoja {
+  --apoyo-fondo: #15171c;
+  --apoyo-tarjeta: #1f2229;
+  --apoyo-borde: rgba(255, 255, 255, 0.1);
+  --apoyo-texto: #f2f3f5;
+  --apoyo-suave: #a8adb8;
+  width: min(420px, 100%);
+  max-width: 100%;
+  max-height: 92vh;
+  margin: auto auto 0;
+  padding: 0;
+  overflow-y: auto;
+  color: var(--apoyo-texto);
+  background: var(--apoyo-fondo);
+  border: 1px solid var(--apoyo-borde);
+  border-bottom: 0;
+  border-radius: 24px 24px 0 0;
+  box-shadow: 0 -20px 60px rgba(0, 0, 0, 0.5);
+}
+
+/* En pantallas grandes no toca el borde de abajo */
+@media (min-width: 600px) {
+  .hoja {
+    margin-bottom: 24px;
+    border-bottom: 1px solid var(--apoyo-borde);
+    border-radius: 24px;
+  }
+}
+
+:root[data-theme="light"] .hoja {
+  --apoyo-fondo: #fff;
+  --apoyo-tarjeta: #f3f4f8;
+  --apoyo-borde: rgba(36, 87, 245, 0.14);
+  --apoyo-texto: #1a1a1a;
+  --apoyo-suave: #5b6070;
+  box-shadow: 0 -20px 60px rgba(36, 87, 245, 0.2);
+}
+
+.hoja[open] {
+  animation: hoja-subir 0.45s cubic-bezier(0.34, 1.3, 0.64, 1);
+}
+
+.hoja::backdrop {
+  background: rgba(5, 8, 15, 0.65);
+  backdrop-filter: blur(6px);
+}
+
+.hoja[open]::backdrop {
+  animation: apoyo-fundido 0.3s ease;
+}
+
+.hoja.cerrando {
+  animation: hoja-bajar 0.25s ease-in forwards;
+}
+
+.hoja.cerrando::backdrop {
+  animation: apoyo-fundido 0.25s ease-in reverse forwards;
+}
+
+/* Mientras se arrastra, la hoja sigue al dedo sin transición */
+.hoja:not(.arrastrando) {
+  transition: transform 0.3s cubic-bezier(0.34, 1.3, 0.64, 1);
+}
+
+@keyframes hoja-subir {
+  from { transform: translateY(100%); }
+}
+
+@keyframes hoja-bajar {
+  to { transform: translateY(100%); }
+}
+
+:root:has(.hoja[open]) {
+  overflow: hidden;
+}
+
+.hoja-contenido {
+  position: relative;
+  padding: 8px 24px 28px;
+  text-align: center;
+  background: radial-gradient(120% 50% at 50% 0%, rgba(36, 87, 245, 0.22), transparent 65%);
+}
+
+.hoja p {
+  margin: 0;
+}
+
+.hoja button {
+  margin: 0;
+  font-family: inherit;
+}
+
+/* Barrita de arriba: se puede arrastrar hacia abajo para cerrar */
+.hoja-asa {
+  display: grid;
+  place-items: center;
+  height: 24px;
+  margin: 0 -24px 10px;
+  cursor: grab;
+  touch-action: none;
+}
+
+.hoja-asa span {
+  width: 40px;
+  height: 5px;
+  background: var(--apoyo-suave);
+  border-radius: 5px;
+  opacity: 0.5;
+}
+
+.hoja.arrastrando .hoja-asa {
+  cursor: grabbing;
+}
+
+.hoja h2 {
+  margin: 0 0 6px;
+  font-size: 22px;
+  font-weight: 800;
+  line-height: 1.25;
+}
+
+.hoja-texto {
+  font-size: 15px;
+  line-height: 1.4;
+  color: var(--apoyo-suave);
+}
+
+/* QR con tu foto en el centro y un brillo azul que respira */
+.hoja-qr {
+  position: relative;
+  width: 196px;
+  margin: 22px auto 10px;
+  padding: 14px;
+  background: #fff;
+  border-radius: 20px;
+  animation: qr-brillo 3s ease-in-out infinite;
+}
+
+.hoja-qr img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.hoja-qr .hoja-qr-foto {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 44px;
+  height: 44px;
+  object-fit: cover;
+  border: 3px solid #fff;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@keyframes qr-brillo {
+  0%, 100% { box-shadow: 0 10px 30px rgba(10, 102, 194, 0.35); }
+  50% { box-shadow: 0 10px 40px rgba(0, 198, 255, 0.6); }
+}
+
+.hoja-url {
+  margin-bottom: 20px !important;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--apoyo-suave);
+}
+
+.hoja-acciones {
+  display: grid;
+  gap: 10px;
+}
+
+.hoja-boton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  height: 48px;
+  padding: 0 16px;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--apoyo-texto) !important;
+  background: var(--apoyo-tarjeta);
+  border: 1px solid var(--apoyo-borde);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s, background-color 0.3s;
+}
+
+.hoja-boton:hover {
+  filter: none;
+  transform: translateY(-2px);
+}
+
+.hoja-boton:active {
+  transform: scale(0.97);
+}
+
+.hoja-boton svg,
+.hoja-boton img {
+  width: 20px;
+  height: 20px;
+}
+
+.hoja-principal {
+  color: #fff !important;
+  background: linear-gradient(120deg, #2457f5, #00c6ff);
+  border: 0;
+  box-shadow: 0 8px 20px rgba(36, 87, 245, 0.35);
+}
+
+.hoja-principal.copiado {
+  background: linear-gradient(120deg, #ff4d8d, #8b5cf6);
+  box-shadow: 0 8px 20px rgba(139, 92, 246, 0.4);
+}
+
+.hoja-whatsapp {
+  color: #fff !important;
+  background: #25d366;
+  border: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .aviso,
+  .aviso.visible,
+  .hoja:not(.arrastrando) {
+    transition: none;
+  }
+
+  .aviso.visible .aviso-icono,
+  .hoja[open],
+  .hoja.cerrando,
+  .hoja-qr {
+    animation: none;
+  }
+}
+
+/* Corazones que salen volando (los crea js/main.js) */
+.corazon-volador {
+  position: fixed;
+  z-index: 1000;
+  width: var(--tam, 18px);
+  height: var(--tam, 18px);
+  pointer-events: none;
+  animation: corazon-volar var(--dur, 1.1s) cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.corazon-volador svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+@keyframes corazon-volar {
+  0% { transform: translate(-50%, -50%) scale(0.2) rotate(0); opacity: 1; }
+  70% { opacity: 1; }
+  100% {
+    transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(1) rotate(var(--giro));
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .button.button-apoyo,
+  .button.button-apoyo::after,
+  .button-apoyo img.icon,
+  .apoyo[open],
+  .apoyo.cerrando,
+  .apoyo-corazon::before,
+  .apoyo-corazon svg,
+  .apoyo-panel,
+  .qr-laser,
+  .vapor {
+    animation: none;
+  }
+
+  .qr-laser,
+  .vapor {
+    display: none;
+  }
+}

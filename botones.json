@@ -1,0 +1,74 @@
+{
+  "iconos": [
+    {
+      "nombre": "facebook",
+      "texto": "",
+      "descripcion": "Facebook",
+      "href": "https://www.facebook.com/alvarosiles.developer",
+      "clase": "small",
+      "icono": "icons/facebook.svg",
+      "alt": "Facebook",
+      "target": "_blank",
+      "rel": "noopener"
+    },
+    {
+      "nombre": "instagram",
+      "texto": "",
+      "descripcion": "Instagram",
+      "href": "https://www.instagram.com/alvarosiles.developer",
+      "clase": "small",
+      "icono": "icons/instagram.svg",
+      "alt": "Instagram",
+      "target": "_blank",
+      "rel": "noopener"
+    },
+    {
+      "nombre": "tiktok",
+      "texto": "",
+      "descripcion": "TikTok",
+      "href": "https://www.tiktok.com/@alvarosiles.developer",
+      "clase": "small",
+      "icono": "icons/tiktok.svg",
+      "alt": "TikTok",
+      "target": "_blank",
+      "rel": "noopener"
+    }
+  ],
+  "profesional": [
+    {
+      "nombre": "casas",
+      "texto": "Ver las casas y habitaciones",
+      "descripcion": "Fotos, habitaciones y precios de cada casa",
+      "href": "#casas",
+      "clase": "button button-alquiler",
+      "icono": "icons/generic-homepage.svg",
+      "alt": "",
+      "target": null,
+      "rel": null
+    },
+    {
+      "nombre": "ubicacion",
+      "texto": "Ubícanos en el mapa",
+      "descripcion": "Las cuatro casas en el mapa",
+      "href": "#ubicacion",
+      "clase": "button button-alquiler",
+      "icono": "icons/generic-map.svg",
+      "alt": "",
+      "target": null,
+      "rel": null,
+      "accion": "grupo",
+      "lugares": "casas"
+    },
+    {
+      "nombre": "reglas",
+      "texto": "Reglas de alquiler",
+      "descripcion": "Depósito, pagos, servicios y convivencia",
+      "href": "#reglas",
+      "clase": "button button-alquiler",
+      "icono": "icons/generic-blog.svg",
+      "alt": "",
+      "target": null,
+      "rel": null
+    }
+  ]
+}

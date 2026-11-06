@@ -1,0 +1,51 @@
+# PUBLICACIÓN: compila el sitio en este repositorio (privado) y sube solo dist/ al repositorio público
+# alvarosiles/personal, que lo sirve con GitHub Pages en https://alvarosiles.github.io/personal/.
+# Configuración única (ver README → "Publicación"): una deploy key con escritura en el repositorio
+# público, guardada aquí como secreto PUBLIC_REPO_DEPLOY_KEY.
+name: Publicar sitio
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: publicar-sitio
+  cancel-in-progress: true
+
+jobs:
+  publicar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Instalar dependencias
+        run: npm ci
+
+      # compile y no build: build también abre la vista previa, que aquí se quedaría esperando
+      - name: Compilar (minificado + ofuscado)
+        run: npm run compile
+
+      - name: Comprobar dist/ (rutas y archivos de desarrollo)
+        run: npm run check
+
+      # force_orphan: el repositorio público queda con un solo commit, sin historial ni referencias a este
+      - name: Publicar en el repositorio público
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          deploy_key: ${{ secrets.PUBLIC_REPO_DEPLOY_KEY }}
+          external_repository: alvarosiles/personal
+          publish_branch: main
+          publish_dir: ./dist
+          force_orphan: true
+          user_name: github-actions[bot]
+          user_email: 41898282+github-actions[bot]@users.noreply.github.com
+          full_commit_message: Publicar sitio

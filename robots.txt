@@ -1,0 +1,5 @@
+# Google y otros buscadores pueden indexar todo
+User-agent: *
+Disallow:
+
+Sitemap: https://alvarosiles.github.io/personal/sitemap.xml

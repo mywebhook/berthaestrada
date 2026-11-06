@@ -1,0 +1,118 @@
+/* Colores del perfil que se eligen en admin.html: el aro de la foto y el punto de la burbuja.
+   Paletas del aro de la foto de perfil. La elegida va en perfil.json ("aro")
+   y js/main.js la pone como data-aro en <html>, así el aro y el resplandor del fondo
+   (--aro-rgb, en css/index.css) usan los mismos colores. admin.html usa este mismo archivo
+   para mostrar las opciones: para agregar una paleta, agregarla aquí y en PALETAS de admin.html. */
+
+:root,
+[data-aro="azul"] {
+  --aro-rgb: 10, 102, 194;
+  --aro-1: #0a66c2;
+  --aro-2: #00c6ff;
+  --aro-3: #2457f5;
+  --brillo-1: rgba(10, 102, 194, 0.35);
+  --brillo-2: rgba(0, 198, 255, 0.55);
+}
+
+[data-aro="morado"] {
+  --aro-rgb: 124, 58, 237;
+  --aro-1: #7c3aed;
+  --aro-2: #c084fc;
+  --aro-3: #4f46e5;
+  --brillo-1: rgba(124, 58, 237, 0.35);
+  --brillo-2: rgba(192, 132, 252, 0.55);
+}
+
+[data-aro="rosa"] {
+  --aro-rgb: 219, 39, 119;
+  --aro-1: #db2777;
+  --aro-2: #ff8fc7;
+  --aro-3: #a21caf;
+  --brillo-1: rgba(219, 39, 119, 0.35);
+  --brillo-2: rgba(255, 143, 199, 0.55);
+}
+
+[data-aro="fuego"] {
+  --aro-rgb: 220, 38, 38;
+  --aro-1: #dc2626;
+  --aro-2: #ff8a3d;
+  --aro-3: #ff3d5a;
+  --brillo-1: rgba(220, 38, 38, 0.35);
+  --brillo-2: rgba(255, 138, 61, 0.55);
+}
+
+[data-aro="dorado"] {
+  --aro-rgb: 217, 119, 6;
+  --aro-1: #d97706;
+  --aro-2: #ffd54a;
+  --aro-3: #f59e0b;
+  --brillo-1: rgba(217, 119, 6, 0.35);
+  --brillo-2: rgba(255, 213, 74, 0.55);
+}
+
+[data-aro="verde"] {
+  --aro-rgb: 22, 163, 74;
+  --aro-1: #16a34a;
+  --aro-2: #86efac;
+  --aro-3: #0d9488;
+  --brillo-1: rgba(22, 163, 74, 0.35);
+  --brillo-2: rgba(134, 239, 172, 0.55);
+}
+
+[data-aro="menta"] {
+  --aro-rgb: 8, 145, 178;
+  --aro-1: #0891b2;
+  --aro-2: #5eead4;
+  --aro-3: #14b8a6;
+  --brillo-1: rgba(8, 145, 178, 0.35);
+  --brillo-2: rgba(94, 234, 212, 0.55);
+}
+
+/* Color del punto de la burbuja de pensamiento, según el estado ("estado.punto" en perfil.json).
+   Para agregar uno, agregarlo aquí y en PUNTOS de admin.html. */
+
+.pensamiento,
+[data-punto="verde"] {
+  --punto: #2fb94f;
+  --punto-claro: #7ef29a;
+  --punto-rgb: 52, 199, 89;
+}
+
+[data-punto="amarillo"] {
+  --punto: #e0a100;
+  --punto-claro: #ffe27a;
+  --punto-rgb: 245, 180, 0;
+}
+
+[data-punto="rojo"] {
+  --punto: #e0303a;
+  --punto-claro: #ff8a8f;
+  --punto-rgb: 240, 60, 70;
+}
+
+[data-punto="azul"] {
+  --punto: #2457f5;
+  --punto-claro: #7fb0ff;
+  --punto-rgb: 36, 120, 245;
+}
+
+[data-punto="morado"] {
+  --punto: #7c3aed;
+  --punto-claro: #c9a6ff;
+  --punto-rgb: 140, 80, 240;
+}
+
+[data-punto="gris"] {
+  --punto: #6b7280;
+  --punto-claro: #c3c8d0;
+  --punto-rgb: 140, 146, 158;
+}
+
+[data-aro="arcoiris"] {
+  --aro-rgb: 255, 61, 90;
+  --aro-1: #ff3d5a;
+  --aro-2: #ffd54a;
+  --aro-3: #2fb9ff;
+  --brillo-1: rgba(255, 61, 90, 0.35);
+  --brillo-2: rgba(47, 185, 255, 0.55);
+}

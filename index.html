@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Bertha Estrada | Alquiler de habitaciones y viviendas</title>
+  <meta name="description" content="Habitaciones y casas en alquiler de Bertha Estrada: precios, disponibilidad, ubicación, reservas y pago con QR." />
+  <meta name="author" content="Bertha Estrada" />
+  <meta name="theme-color" content="#0e141b" />
+  <link rel="icon" href="favicon.ico" sizes="any" />
+  <link rel="icon" type="image/png" href="images/favicon-32.png" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+  <link rel="manifest" href="site.webmanifest" />
+
+  <!-- Vista previa al compartir el enlace (WhatsApp, Facebook...).
+       PENDIENTE: con la URL pública definitiva, agregar og:url y og:image con direcciones completas. -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Bertha Estrada" />
+  <meta property="og:title" content="Bertha Estrada | Alquiler de habitaciones y viviendas" />
+  <meta property="og:description" content="Habitaciones y casas en alquiler: precios, disponibilidad, ubicación y reservas por WhatsApp." />
+  <meta property="og:locale" content="es_ES" />
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,800&display=swap" />
+  <link rel="stylesheet" href="css/normalize.css" />
+  <link rel="stylesheet" href="css/skeleton-dark.css" />
+  <link rel="stylesheet" href="css/brands.css" />
+  <link rel="stylesheet" href="css/index.css" />
+  <link rel="stylesheet" href="css/aros.css" />
+  <link rel="stylesheet" href="css/alquileres.css" />
+  <link rel="stylesheet" href="css/tarjeta.css" />
+
+  <!-- Aplica el tema guardado antes de pintar la página, para que no parpadee -->
+  <script>
+    (function () {
+      let tema = null;
+      try { tema = localStorage.getItem("social-theme"); } catch (e) { }
+      if (!tema) tema = matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+      document.documentElement.dataset.theme = tema;
+      // Animación de entrada; js/main.js quita la clase cuando termina
+      document.documentElement.classList.add("entrada");
+    })();
+  </script>
+</head>
+
+<body>
+  <nav class="controles" aria-label="Opciones">
+    <!-- Solo existe en esta página: abre la hoja "Compartir" (ver js/main.js) -->
+    <button type="button" id="btn-compartir">
+      <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2"
+        stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 3v12M7 8l5-5 5 5M5 13v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6" />
+      </svg>
+    </button>
+    <button type="button" id="btn-idioma"></button>
+    <button type="button" id="btn-tema"></button>
+  </nav>
+
+  <!-- Toda la página va en una tarjeta central (estilos en css/tarjeta.css) -->
+  <main class="container tarjeta">
+    <!-- Franja de color arriba; la foto queda montada sobre ella -->
+    <div class="portada" aria-hidden="true"></div>
+
+    <header class="perfil">
+      <!-- Foto, color del aro y burbuja se configuran en perfil.json (o desde admin.html) -->
+      <div class="avatar-wrap" id="avatar-wrap">
+        <img src="images/avatar-perfil.jpg" class="avatar" id="avatar" alt="Bertha Estrada" />
+        <!-- Burbuja de pensamiento: texto, color del punto y si se muestra salen de "estado" en perfil.json -->
+        <!-- Al tocarla abre la ventana "Contrátame" (ver js/main.js) -->
+        <button type="button" class="pensamiento" id="btn-disponible" aria-haspopup="dialog"><span class="punto"
+            aria-hidden="true"></span><span data-i18n="estado">Disponible para
+            trabajar</span></button>
+      </div>
+      <h1>Bertha Estrada</h1>
+      <p class="subtitulo">Alquiler de habitaciones y viviendas · Santa Cruz</p>
+      <!-- Cuántas habitaciones libres hay: lo calcula js/alquileres.js con los datos de js/config.js -->
+      <p class="estado-pill" id="estado-libres"><span class="punto" aria-hidden="true"></span><span>Habitaciones disponibles</span></p>
+
+      <!-- Accesos principales. WhatsApp y Llamar usan el número de js/config.js; "Ubícame" abre el mapa con
+           la oficina (oficina en js/config.js) -->
+      <nav class="tiles" aria-label="Contacto">
+        <a class="tile" data-whatsapp href="https://wa.me/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21l1.6-4.8A8.5 8.5 0 1 1 8 19.6z" /><path d="M9 9.5c0 3 2.5 5.5 5.5 5.5l1-1.6-2-1-1 .9a4 4 0 0 1-1.8-1.8l.9-1-1-2z" /></svg><span>WhatsApp</span></a>
+        <a class="tile" id="tile-llamar" href="tel:"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2" /></svg><span>Llamar</span></a>
+        <button type="button" class="tile" id="tile-mapa" aria-haspopup="dialog"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-12a7 7 0 0 1 14 0c0 5.8-7 12-7 12z" /><circle cx="12" cy="9" r="2.5" /></svg><span>Ubícame</span></button>
+        <button type="button" class="tile" id="tile-compartir" aria-haspopup="dialog"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3" /><circle cx="6" cy="12" r="3" /><circle cx="18" cy="19" r="3" /><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4" /></svg><span>Compartir</span></button>
+      </nav>
+      <p class="aviso-pendiente" data-falta-whatsapp hidden>Número de WhatsApp pendiente: configúralo en js/config.js.</p>
+    </header>
+
+    <!-- Redes (grupo "iconos" de botones.json, ver js/main.js) -->
+    <section class="grupo-botones" id="iconos"></section>
+
+    <!-- Descarga una tarjeta de contacto (.vcf) con el nombre y el número de Bertha -->
+    <button type="button" class="boton-contacto" id="guardar-contacto"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /><path d="M19 8v6M22 11h-6" /></svg><span>Guardar contacto</span></button>
+
+    <!-- El formulario está en la ventana "Reservar". Cualquier enlace a #reservar la abre (ver js/alquileres.js) -->
+    <section class="seccion panel panel-cta" id="reservar" aria-label="Reservar">
+      <button type="button" class="boton-cta" data-abrir="ventana-reserva" aria-haspopup="dialog"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2" /><path d="M16 3v4M8 3v4M3 11h18" /></svg><span>Solicitar reserva</span></button>
+      <p class="panel-nota">La reserva queda confirmada recién cuando Bertha te responda por WhatsApp.</p>
+    </section>
+
+    <!-- Enlaces: grupo "profesional" de botones.json (ver js/main.js) -->
+    <section class="seccion panel" id="enlaces" aria-labelledby="enlaces-titulo">
+      <h2 class="seccion-titulo" id="enlaces-titulo">Enlaces</h2>
+      <div class="grupo-botones" id="profesional"></div>
+    </section>
+
+    <!-- Desde aquí, el contenido lo dibuja js/alquileres.js con los datos de js/config.js -->
+    <section class="seccion panel" id="ubicacion" aria-labelledby="ubicacion-titulo">
+      <h2 class="seccion-titulo" id="ubicacion-titulo">Nuestras casas</h2>
+      <!-- Mapa real (Leaflet + OpenStreetMap) con un pin por casa; se carga al acercarse a esta sección.
+           Las filas de abajo mueven el mapa; el botón abre la ventana grande con Google Maps y Waze -->
+      <div class="mapa-casas" id="mapa-casas">
+        <span class="mapa-previa-calles" aria-hidden="true"></span>
+        <div class="mapa-casas-leaflet" id="mapa-casas-leaflet" role="region" aria-label="Mapa de las casas"></div>
+        <div class="mapa-botones">
+          <!-- El texto ("Ver las 4 casas") lo completa js/alquileres.js con la cantidad de casas -->
+          <button type="button" class="mapa-previa-texto" id="mapa-todas" aria-pressed="true">◎ Ver todas</button>
+          <button type="button" class="mapa-previa-texto" id="mapa-ampliar" aria-haspopup="dialog">⤢ Ampliar</button>
+        </div>
+      </div>
+      <div class="lista-ubicaciones" id="lista-ubicaciones"></div>
+    </section>
+
+    <section class="seccion panel" id="casas" aria-labelledby="casas-titulo">
+      <h2 class="seccion-titulo" id="casas-titulo">Propiedades</h2>
+      <p class="seccion-texto">Toca una casa para ver sus fotos, habitaciones y precios.</p>
+      <div class="lista-casas" id="lista-casas"></div>
+    </section>
+
+    <!-- El QR de cobro está en la ventana "Pagar alquiler". Cualquier enlace a #pagar la abre -->
+    <section class="seccion panel" id="pagar" aria-labelledby="pagar-titulo">
+      <h2 class="seccion-titulo" id="pagar-titulo">Métodos de pago</h2>
+      <div class="filas">
+        <button type="button" class="fila" data-abrir="ventana-pago" aria-haspopup="dialog"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1" /><rect x="14" y="3" width="7" height="7" rx="1" /><rect x="3" y="14" width="7" height="7" rx="1" /><path d="M14 14h3v3h-3zM20 14v.01M14 20h.01M17 17h4v4h-4" /></svg><span>QR de pago</span><span class="fila-flecha" aria-hidden="true">→</span></button>
+        <a class="fila" id="fila-comprobante" href="https://wa.me/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2h12v20l-3-2-3 2-3-2-3 2z" /><path d="M9 7h6M9 11h6M9 15h4" /></svg><span>Enviar comprobante</span><span class="fila-flecha" aria-hidden="true">→</span></a>
+      </div>
+    </section>
+
+    <!-- QR que lleva a esta página (para compartir o imprimir y pegar en la puerta de cada casa).
+         Lo genera js/alquileres.js con urlPublica de js/config.js (o la dirección actual) -->
+    <section class="seccion panel qr-compartir" id="qr-pagina" aria-labelledby="qr-pagina-titulo">
+      <div class="qr-caja" id="qr-pagina-codigo"></div>
+      <h2 class="qr-etiqueta" id="qr-pagina-titulo">Escanea para compartir</h2>
+      <a class="qr-descargar" id="qr-pagina-descargar" download="QR-Bertha-Estrada.gif" hidden>Descargar para imprimir</a>
+    </section>
+
+    <footer class="pie">
+      <a class="pie-url" id="pie-url" href="./"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="pie-icono"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7" /><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7" /></svg><span id="pie-url-texto"></span></a>
+      <p>© <span id="anio">2026</span> Bertha Estrada</p>
+    </footer>
+  </main>
+
+  <!-- Aviso "Hay más abajo": aparece al entrar si la página sigue hacia abajo y se va al primer
+       desplazamiento; al tocarlo baja la página (ver js/main.js) -->
+  <button type="button" class="hay-mas" id="hay-mas" tabindex="-1">
+    <span data-i18n="hayMas">Hay más abajo</span>
+    <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path class="hay-mas-flecha" d="M6 6l6 6 6-6" /><path class="hay-mas-flecha" d="M6 12l6 6 6-6" /></svg>
+  </button>
+
+  <!-- Botón "Subir": aparece al bajar por la página y su aro muestra cuánto se recorrió (ver js/main.js) -->
+  <button type="button" class="btn-subir" id="btn-subir" aria-label="Volver arriba" data-i18n-aria="subir">
+    <svg class="subir-progreso" viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="22" pathLength="100" /></svg>
+    <svg class="subir-flecha" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7" /></svg>
+  </button>
+
+  <!-- Ventana "Reservar": la abren el botón de la sección Reservar, los enlaces a #reservar y
+       casa.html (index.html?casa=...&habitacion=...#reservar). Usa los estilos de ventana (.apoyo). -->
+  <dialog class="apoyo reserva" id="ventana-reserva" aria-labelledby="reserva-titulo">
+    <div class="apoyo-contenido">
+      <button type="button" class="apoyo-cerrar" data-cerrar aria-label="Cerrar">
+        <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.4"
+          stroke-linecap="round">
+          <path d="M6 6l12 12M18 6L6 18" />
+        </svg>
+      </button>
+
+      <div class="apoyo-cabecera">
+        <div class="apoyo-corazon reserva-icono" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round">
+            <rect x="3" y="5" width="18" height="16" rx="2" />
+            <path d="M16 3v4M8 3v4M3 11h18M9 16l2 2 4-4" />
+          </svg>
+        </div>
+        <h2 id="reserva-titulo">Reservar</h2>
+        <p>Completa tus datos y envíame la solicitud por WhatsApp.</p>
+      </div>
+
+      <!-- Sin servidor: los datos no se guardan ni se envían a ningún lado; solo arman el mensaje de WhatsApp -->
+          <form class="form-reserva" id="form-reserva" novalidate>
+            <div class="campo">
+              <label for="reserva-nombre">Nombre completo</label>
+              <input id="reserva-nombre" name="nombre" type="text" autocomplete="name" required
+                aria-describedby="reserva-nombre-error" />
+              <p class="campo-error" id="reserva-nombre-error" aria-live="polite"></p>
+            </div>
+            <div class="campo">
+              <label for="reserva-whatsapp">Tu WhatsApp</label>
+              <input id="reserva-whatsapp" name="whatsapp" type="tel" inputmode="tel" autocomplete="tel"
+                placeholder="Ej.: 70000000" required aria-describedby="reserva-whatsapp-error" />
+              <p class="campo-error" id="reserva-whatsapp-error" aria-live="polite"></p>
+            </div>
+            <div class="campo">
+              <label for="reserva-casa">Propiedad</label>
+              <select id="reserva-casa" name="casa" required aria-describedby="reserva-casa-error"></select>
+              <p class="campo-error" id="reserva-casa-error" aria-live="polite"></p>
+            </div>
+            <div class="campo">
+              <label for="reserva-habitacion">Habitación</label>
+              <select id="reserva-habitacion" name="habitacion"></select>
+            </div>
+            <div class="campo">
+              <label for="reserva-mensaje">Mensaje <span class="opcional">(opcional)</span></label>
+              <textarea id="reserva-mensaje" name="mensaje" rows="3" maxlength="500"
+                placeholder="Fecha de ingreso, cuántas personas, preguntas…"></textarea>
+            </div>
+            <div class="form-acciones">
+              <button type="submit" class="boton-alquiler boton-principal">Preparar solicitud</button>
+              <button type="reset" class="boton-alquiler boton-secundario">Borrar</button>
+            </div>
+            <div class="reserva-confirmacion" id="reserva-confirmacion" tabindex="-1" role="status" hidden>
+              <strong>Solicitud lista ✅</strong>
+              <p>Todavía <b>no es una reserva confirmada</b>. Envíame el mensaje por WhatsApp y te respondo con la
+                disponibilidad.</p>
+              <a class="boton-alquiler boton-whatsapp" id="reserva-enviar-whatsapp" href="https://wa.me/" target="_blank"
+                rel="noopener">Enviar por WhatsApp</a>
+            </div>
+          </form>
+    </div>
+  </dialog>
+
+  <!-- Ventana "Pagar alquiler": la abren el botón de la sección y los enlaces a #pagar. Usa los estilos de ventana (.apoyo). -->
+  <dialog class="apoyo pago-ventana" id="ventana-pago" aria-labelledby="pago-titulo">
+    <div class="apoyo-contenido">
+      <button type="button" class="apoyo-cerrar" data-cerrar aria-label="Cerrar">
+        <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.4"
+          stroke-linecap="round">
+          <path d="M6 6l12 12M18 6L6 18" />
+        </svg>
+      </button>
+
+      <div class="apoyo-cabecera">
+        <h2 id="pago-titulo">Pagar alquiler con QR</h2>
+        <p>Escanéalo con la app de tu banco.</p>
+      </div>
+
+          <div class="pago">
+            <!-- El QR real se configura en js/config.js (pago.qr). Mientras tanto, este espacio queda marcado. -->
+            <div class="pago-qr" id="pago-qr">
+              <div class="qr-pendiente" role="img" aria-label="QR de pago pendiente">
+                <span aria-hidden="true">▦</span>
+                <strong>QR pendiente</strong>
+                <span>Aquí va el QR de cobro real del banco</span>
+              </div>
+            </div>
+            <dl class="pago-datos">
+              <div><dt>Titular</dt><dd id="pago-titular"></dd></div>
+              <div><dt>Banco</dt><dd id="pago-banco"></dd></div>
+            </dl>
+            <a class="boton-alquiler boton-secundario" id="pago-descargar" download="QR-pago-alquiler.png" hidden>Descargar QR</a>
+            <ol class="pago-instrucciones" id="pago-instrucciones"></ol>
+            <a class="boton-alquiler boton-whatsapp" id="pago-comprobante" href="https://wa.me/" target="_blank"
+              rel="noopener">Enviar comprobante por WhatsApp</a>
+            <p class="nota">El pago no se registra automáticamente: Bertha lo confirma al recibir tu comprobante.</p>
+          </div>
+    </div>
+  </dialog>
+
+  <!-- Ventana "Reglas de alquiler": la abren los enlaces a #reglas (botones.json). Las reglas salen de js/config.js -->
+  <dialog class="apoyo reglas-ventana" id="ventana-reglas" aria-labelledby="reglas-titulo">
+    <div class="apoyo-contenido">
+      <button type="button" class="apoyo-cerrar" data-cerrar aria-label="Cerrar">
+        <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.4"
+          stroke-linecap="round">
+          <path d="M6 6l12 12M18 6L6 18" />
+        </svg>
+      </button>
+      <div class="apoyo-cabecera">
+        <h2 id="reglas-titulo">Reglas de alquiler</h2>
+        <p>Léelas antes de reservar.</p>
+      </div>
+      <dl class="lista-reglas" id="lista-reglas"></dl>
+    </div>
+  </dialog>
+
+  <!-- Ventana "Contáctame": la abren la burbuja de estado y el botón con "accion": "contratame"
+       de botones.json. Usa los estilos de ventana (.apoyo). -->
+  <dialog class="apoyo contratame" id="contratame" aria-labelledby="contratame-titulo">
+    <div class="apoyo-contenido">
+      <button type="button" class="apoyo-cerrar" data-cerrar aria-label="Cerrar">
+        <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.4"
+          stroke-linecap="round">
+          <path d="M6 6l12 12M18 6L6 18" />
+        </svg>
+      </button>
+
+      <div class="apoyo-cabecera">
+        <div class="apoyo-corazon contratame-icono" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round">
+            <rect x="3" y="7" width="18" height="13" rx="2" />
+            <path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M3 13h18" />
+          </svg>
+        </div>
+        <h2 id="contratame-titulo" data-i18n="contratameTitulo">¿Trabajamos juntos?</h2>
+        <p data-i18n="contratameTexto">Full Stack Developer con más de 9 años de experiencia en desarrollo web, móvil e
+          infraestructura.</p>
+      </div>
+
+      <ul class="contratame-datos">
+        <li><span aria-hidden="true">📍</span><span data-i18n="contratameLugar">Santa Cruz de la Sierra, Bolivia</span>
+        </li>
+        <li><span aria-hidden="true">💼</span><span data-i18n="contratameBusco">Busco: Full Stack Developer o Jefe de
+            Sistemas</span></li>
+        <li><span aria-hidden="true">🌎</span><span data-i18n="contratameModalidad">Presencial o remoto</span></li>
+      </ul>
+
+      <div class="contratame-acciones">
+        <a class="apoyo-accion contratame-whatsapp" id="contratame-whatsapp" href="https://wa.me/"
+          target="_blank" rel="noopener">
+          <img src="icons/whatsapp.svg" alt="" aria-hidden="true" />
+          <span data-i18n="contratameWhatsapp">Escríbeme por WhatsApp</span>
+        </a>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- Ventana "Ubícame" / "Encuéntranos" / "Grupo de ubicaciones": la abren los botones con "accion":
+       "ubicame", "encuentranos" o "grupo" de botones.json, con los puntos de su "lugares". Con más de un
+       lugar se muestran chips para elegir. El mapa se pide recién al abrir la ventana. -->
+  <dialog class="apoyo ubicame" id="ubicame" aria-labelledby="ubicame-titulo">
+    <div class="apoyo-contenido">
+      <button type="button" class="apoyo-cerrar" data-cerrar aria-label="Cerrar">
+        <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.4"
+          stroke-linecap="round">
+          <path d="M6 6l12 12M18 6L6 18" />
+        </svg>
+      </button>
+
+      <div class="apoyo-cabecera">
+        <div class="apoyo-corazon ubicame-icono" aria-hidden="true">
+          <svg viewBox="0 0 24 24">
+            <path
+              d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z" />
+          </svg>
+        </div>
+        <h2 id="ubicame-titulo" data-i18n="ubicameTitulo">¡Aquí me encuentras!</h2>
+        <p id="ubicame-direccion"></p>
+      </div>
+
+      <div class="ubicame-lugares" id="ubicame-lugares" role="group" aria-label="Lugares"
+        data-i18n-aria="ubicameLugares" hidden></div>
+
+      <!-- Mientras carga el mapa se ve un brillo que lo recorre -->
+      <div class="ubicame-mapa">
+        <iframe id="ubicame-iframe" title="Mapa de mi ubicación" data-i18n-title="ubicameMapa" loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <!-- Solo en "Grupo de ubicaciones": mapa de Leaflet con todos los pines -->
+        <div class="ubicame-grupo" id="ubicame-grupo"></div>
+      </div>
+
+      <p class="ubicame-hora" id="ubicame-hora"></p>
+
+      <div class="ubicame-acciones">
+        <a class="apoyo-accion ubicame-google" id="ubicame-google" href="https://www.google.com/maps" target="_blank"
+          rel="noopener">
+          <svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor">
+            <path
+              d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z" />
+          </svg>
+          <span>Google Maps</span>
+        </a>
+        <a class="apoyo-accion ubicame-waze" id="ubicame-waze" href="https://waze.com/ul" target="_blank"
+          rel="noopener">
+          <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 11l18-8-8 18-2-8z" />
+          </svg>
+          <span>Waze</span>
+        </a>
+        <a class="apoyo-accion ubicame-whatsapp" id="ubicame-whatsapp" href="https://wa.me/" target="_blank"
+          rel="noopener">
+          <img src="icons/whatsapp.svg" alt="" aria-hidden="true" />
+          <span data-i18n="ubicameWhatsapp">Compartir por WhatsApp</span>
+        </a>
+        <button type="button" class="contratame-secundario ubicame-copiar" id="ubicame-copiar">
+          <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <rect x="9" y="9" width="12" height="12" rx="2" />
+            <path d="M5 15H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1" />
+          </svg>
+          <span data-i18n="ubicameCopiar">Copiar ubicación</span>
+        </button>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- Hoja "Compartir": sube desde abajo con el enlace de la página.
+       Se cierra con la X, tocando afuera, con Escape o arrastrando la barrita hacia abajo. -->
+  <dialog class="hoja" id="compartir" aria-labelledby="compartir-titulo">
+    <div class="hoja-contenido">
+      <div class="hoja-asa" aria-hidden="true"><span></span></div>
+      <button type="button" class="apoyo-cerrar" data-cerrar aria-label="Cerrar">
+        <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.4"
+          stroke-linecap="round">
+          <path d="M6 6l12 12M18 6L6 18" />
+        </svg>
+      </button>
+
+      <h2 id="compartir-titulo" data-i18n="compartirTitulo">Comparte mi página</h2>
+      <p class="hoja-texto" data-i18n="compartirTexto">Escanea el código o envía el enlace a quien lo necesite.</p>
+
+      <!-- La dirección la escribe js/alquileres.js (urlPublica de js/config.js) -->
+      <p class="hoja-url" id="hoja-url"></p>
+
+      <div class="hoja-acciones">
+        <button type="button" class="hoja-boton hoja-principal" id="copiar-enlace">
+          <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <rect x="9" y="9" width="12" height="12" rx="2" />
+            <path d="M5 15H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1" />
+          </svg>
+          <span data-i18n="copiarEnlace">Copiar enlace</span>
+        </button>
+        <a class="hoja-boton hoja-whatsapp" id="compartir-whatsapp" href="https://wa.me/" target="_blank" rel="noopener">
+          <img src="icons/whatsapp.svg" alt="" aria-hidden="true" />
+          <span>WhatsApp</span>
+        </a>
+        <!-- Solo se muestra si el navegador tiene el menú de compartir del sistema (celulares, Safari, Edge) -->
+        <button type="button" class="hoja-boton" id="compartir-nativo" hidden>
+          <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="18" cy="5" r="3" />
+            <circle cx="6" cy="12" r="3" />
+            <circle cx="18" cy="19" r="3" />
+            <path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4" />
+          </svg>
+          <span data-i18n="masOpciones">Más opciones</span>
+        </button>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- config.js primero: main.js y alquileres.js leen sus datos -->
+  <script src="js/config.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/alquileres.js"></script>
+</body>
+
+</html>
